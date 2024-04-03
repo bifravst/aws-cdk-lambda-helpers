@@ -3,10 +3,22 @@
   "version": "0.0.0-development",
   "description": "Helper functions which simplify working with TypeScript lambdas for AWS CDK.",
   "exports": {
-    "./*": {
+    ".": {
       "import": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
+        "types": "./dist/lambda.d.ts",
+        "default": "./dist/lambda.js"
+      }
+    },
+    "./layer": {
+      "import": {
+        "types": "./dist/layer.d.ts",
+        "default": "./dist/layer.js"
+      }
+    },
+    "./util": {
+      "import": {
+        "types": "./dist/util.d.ts",
+        "default": "./dist/util.js"
       }
     }
   },
