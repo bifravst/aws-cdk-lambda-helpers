@@ -1,0 +1,93 @@
+{
+  "name": "@bifravst/aws-cdk-lambda-helpers",
+  "version": "0.0.0-development",
+  "description": "Helper functions which simplify working with TypeScript lambdas for AWS CDK.",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "node": "./dist/index.js"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "test": "tsx --no-warnings --test ./src/*.spec.ts",
+    "prepare": "husky",
+    "prepublishOnly": "npx tsc --noEmit false --outDir ./dist -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bifravst/aws-cdk-lambda-helpers.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bifravst/aws-cdk-lambda-helpers/issues"
+  },
+  "homepage": "https://github.com/bifravst/aws-cdk-lambda-helpers",
+  "keywords": [
+    "aws",
+    "cdk",
+    "lambda",
+    "typescript"
+  ],
+  "author": "Nordic Semiconductor ASA | nordicsemi.no",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "@bifravst/eslint-config-typescript": "6.0.17",
+    "@bifravst/prettier-config": "1.0.0",
+    "@commitlint/config-conventional": "19.1.0",
+    "@types/node": "20.12.3",
+    "@types/yazl": "2.4.5",
+    "husky": "9.0.11",
+    "tsx": "4.7.1"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint"
+    ],
+    "*.{md,json,yaml,yml}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=20",
+    "npm": ">=9"
+  },
+  "release": {
+    "branches": [
+      "saga",
+      {
+        "name": "!(saga)",
+        "prerelease": true
+      }
+    ],
+    "remoteTags": true,
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "successComment": false,
+          "failTitle": false
+        }
+      ]
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "package-lock.json",
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "prettier": "@bifravst/prettier-config",
+  "dependencies": {
+    "@swc/core": "1.4.11",
+    "glob": "10.3.12",
+    "yazl": "2.5.1"
+  }
+}
