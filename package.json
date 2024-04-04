@@ -45,13 +45,13 @@
   "author": "Nordic Semiconductor ASA | nordicsemi.no",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@bifravst/eslint-config-typescript": "6.0.17",
+    "@bifravst/eslint-config-typescript": "6.0.18",
     "@bifravst/prettier-config": "1.0.0",
     "@commitlint/config-conventional": "19.1.0",
-    "@types/node": "20.12.3",
+    "@types/node": "20.12.4",
     "@types/yazl": "2.4.5",
     "husky": "9.0.11",
-    "tsx": "4.7.1"
+    "tsx": "4.7.2"
   },
   "lint-staged": {
     "*.ts": [
@@ -99,7 +99,7 @@
   ],
   "prettier": "@bifravst/prettier-config",
   "dependencies": {
-    "@swc/core": "1.4.11",
+    "@swc/core": "1.4.12",
     "glob": "10.3.12",
     "yazl": "2.5.1"
   },
