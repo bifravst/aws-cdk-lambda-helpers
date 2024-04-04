@@ -20,6 +20,12 @@
         "types": "./dist/util.d.ts",
         "default": "./dist/util.js"
       }
+    },
+    "./cdk": {
+      "import": {
+        "types": "./dist/cdk.d.ts",
+        "default": "./dist/cdk.js"
+      }
     }
   },
   "type": "module",
