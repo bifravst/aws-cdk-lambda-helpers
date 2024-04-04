@@ -102,5 +102,9 @@
     "@swc/core": "1.4.11",
     "glob": "10.3.12",
     "yazl": "2.5.1"
+  },
+  "peerDependencies": {
+    "aws-cdk-lib": "2.135.0",
+    "constructs": "10.3.0"
   }
 }
