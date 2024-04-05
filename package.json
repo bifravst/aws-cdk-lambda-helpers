@@ -51,12 +51,18 @@
   "author": "Nordic Semiconductor ASA | nordicsemi.no",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@bifravst/eslint-config-typescript": "6.0.18",
+    "@aws-sdk/client-cloudformation": "3.549.0",
+    "@bifravst/eslint-config-typescript": "6.0.19",
     "@bifravst/prettier-config": "1.0.0",
     "@commitlint/config-conventional": "19.1.0",
+    "@nordicsemiconductor/cloudformation-helpers": "^9.0.3",
+    "@nordicsemiconductor/from-env": "^3.0.1",
+    "@types/aws-lambda": "8.10.137",
     "@types/node": "20.12.4",
     "@types/yazl": "2.4.5",
+    "cdk": "2.135.0",
     "husky": "9.0.11",
+    "id128": "1.6.6",
     "tsx": "4.7.2"
   },
   "lint-staged": {
@@ -107,7 +113,7 @@
   "dependencies": {
     "@swc/core": "1.4.12",
     "glob": "10.3.12",
-    "typescript": "5.4.3",
+    "typescript": "5.4.4",
     "yazl": "2.5.1"
   },
   "peerDependencies": {

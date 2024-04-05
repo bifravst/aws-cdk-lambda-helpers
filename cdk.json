@@ -1,0 +1,3 @@
+{
+  "app": "npx tsx --no-warnings cdk/e2e.ts"
+}

@@ -6,28 +6,63 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+permissions:
+  contents: write
+  issues: write
+  id-token: write
+
 jobs:
   tests:
     runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: "20.x"
           cache: "npm"
+
       - name: Authenticate with NPM registry
         run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+
       - name: Install dependencies
         run: npm ci --no-audit
+
       - name: Compile
         run: npx tsc
+
       - name: Check source code with eslint
         run: npx eslint .
+
       - name: Check if source code is properly formatted
         run: npx prettier -c ./
+
       - name: Test
         run: npm test
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          # The role is set up via https://github.com/bifravst/ci
+          # secrets.AWS_ACCOUNT_ID_CI is an organization secret
+          role-to-assume: |
+            arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID_CI }}:role/${{ github.repository_owner }}-ci-${{ github.event.repository.name }}
+          # vars.AWS_REGION_CI is an organization variable
+          aws-region: ${{ vars.AWS_REGION_CI }}
+
+      - name: Generate Stack ID
+        run: |
+          RANDOM_STRING=`node -e "const crypto = require('crypto'); process.stdout.write(crypto.randomBytes(Math.ceil(8 * 0.5)).toString('hex').slice(0, 8));"`
+          echo "STACK_NAME=lh-${RANDOM_STRING}" >> $GITHUB_ENV
+
+      - run: npx cdk deploy --require-approval never
+
+      - name: Run end-to-end tests
+        run: npx tsx --test e2e.spec.ts
+
+      - run: npx cdk destroy -f
+
       - name: Semantic release
         continue-on-error: true
         run: npx semantic-release
