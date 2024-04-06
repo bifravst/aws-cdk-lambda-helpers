@@ -5,26 +5,26 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/lambda.d.ts",
-        "default": "./dist/lambda.js"
+        "types": "./dist/src/lambda.d.ts",
+        "default": "./dist/src/lambda.js"
       }
     },
     "./layer": {
       "import": {
-        "types": "./dist/layer.d.ts",
-        "default": "./dist/layer.js"
+        "types": "./dist/src/layer.d.ts",
+        "default": "./dist/src/layer.js"
       }
     },
     "./util": {
       "import": {
-        "types": "./dist/util.d.ts",
-        "default": "./dist/util.js"
+        "types": "./dist/src/util.d.ts",
+        "default": "./dist/src/util.js"
       }
     },
     "./cdk": {
       "import": {
-        "types": "./dist/cdk.d.ts",
-        "default": "./dist/cdk.js"
+        "types": "./dist/src/cdk.d.ts",
+        "default": "./dist/src/cdk.js"
       }
     }
   },
