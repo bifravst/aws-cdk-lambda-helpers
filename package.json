@@ -117,7 +117,7 @@
     "yazl": "2.5.1"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.135.0",
+    "aws-cdk-lib": "^2.136.0",
     "constructs": "^10.3.0"
   }
 }
