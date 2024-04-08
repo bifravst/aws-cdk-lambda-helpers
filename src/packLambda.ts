@@ -6,6 +6,7 @@ import { checkSumOfFiles } from './checksumOfFiles.js'
 import { commonParent } from './commonParent.js'
 import { findDependencies } from './findDependencies.js'
 import { fileURLToPath } from 'node:url'
+import path from 'node:path'
 
 export type PackedLambda = {
 	id: string
@@ -43,11 +44,20 @@ export const packLambda = async ({
 	debug?: (label: string, info: string) => void
 	progress?: (label: string, info: string) => void
 }): Promise<{ handler: string; hash: string }> => {
-	const lambdaFiles = [sourceFile, ...findDependencies(sourceFile)]
+	const deps = findDependencies(sourceFile)
+	const lambdaFiles = [sourceFile, ...deps]
 
 	const zipfile = new yazl.ZipFile()
 
 	const stripCommon = removeCommonAncestor(commonParent(lambdaFiles))
+
+	const handler = stripCommon(sourceFile)
+
+	const folderNames = new Set(deps.map(stripCommon).map((s) => s.split('/')[0]))
+	const handlerName = path.parse(handler).name
+	if (folderNames.has(handlerName)) {
+		throw new ImportFromFolderNameError(handlerName)
+	}
 
 	for (const file of lambdaFiles) {
 		const compiled = (
@@ -90,4 +100,18 @@ export const packLambda = async ({
 	progress?.(`written`, zipFile)
 
 	return { handler: stripCommon(sourceFile), hash }
+}
+
+/**
+ * @see https://github.com/aws/aws-lambda-nodejs-runtime-interface-client/issues/93#issuecomment-2042201321
+ */
+export class ImportFromFolderNameError extends Error {
+	public readonly folderName: string
+	constructor(folderName: string) {
+		super(
+			`Import from folder with same name as handler ("${folderName}") not allowed!`,
+		)
+		this.name = 'ImportFromFolderNameError'
+		this.folderName = folderName
+	}
 }
