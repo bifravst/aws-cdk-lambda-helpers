@@ -16,3 +16,7 @@ Helper functions which simplify working with TypeScript lambdas for AWS CDK.
 ## Usage
 
 See [the end-to-end test stack](./cdk/e2e.ts).
+
+## Example migrations to `@bifravst/aws-cdk-lambda-helpers`
+
+- [world.thingy.rocks backend](https://github.com/NordicPlayground/thingy-rocks-cloud-aws-js/commit/3ca6e267917db4d8cb09ca63ed54384c0e23f163)
