@@ -53,12 +53,23 @@ export const packLambda = async ({
 
 	const handler = stripCommon(sourceFile)
 
-	const folderNames = new Set(deps.map(stripCommon).map((s) => s.split('/')[0]))
-	const handlerName = path.parse(handler).name
-	if (folderNames.has(handlerName)) {
+	// Make sure that the handler does not import from a folder with the same name in the folder
+	const handlerInfo = path.parse(handler)
+	const handlerName = handlerInfo.name
+	const handlerDir = handlerInfo.dir
+	const handlerDepsFromSameDirectory = deps
+		.map(stripCommon)
+		.filter((d) =>
+			handlerDir === '' ? true : d.startsWith(`${handlerDir}${path.sep}`),
+		)
+	const handlerDepsFolderNames = new Set(
+		handlerDepsFromSameDirectory.map((s) => s.split('/')[0]),
+	)
+	if (handlerDepsFolderNames.has(handlerName)) {
 		throw new ImportFromFolderNameError(handlerName)
 	}
 
+	// Compile files
 	for (const file of lambdaFiles) {
 		const compiled = (
 			await swc.transformFile(file, {
