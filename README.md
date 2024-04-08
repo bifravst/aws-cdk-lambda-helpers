@@ -11,4 +11,8 @@ Helper functions which simplify working with TypeScript lambdas for AWS CDK.
 
 ## Installation
 
-    npm i --save --save-exact @bifravst/aws-cdk-lambda-helpers
+    npm i --save-dev --save-exact @bifravst/aws-cdk-lambda-helpers
+
+## Usage
+
+See [the end-to-end test stack](./cdk/e2e.ts).
