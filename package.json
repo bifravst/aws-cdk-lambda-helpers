@@ -105,7 +105,7 @@
   },
   "files": [
     "package-lock.json",
-    "dist",
+    "dist/src",
     "LICENSE",
     "README.md"
   ],
