@@ -60,7 +60,7 @@
     "@types/aws-lambda": "8.10.137",
     "@types/node": "20.12.7",
     "@types/yazl": "2.4.5",
-    "cdk": "2.136.0",
+    "cdk": "2.136.1",
     "husky": "9.0.11",
     "id128": "1.6.6",
     "tsx": "4.7.2"
@@ -117,7 +117,7 @@
     "yazl": "2.5.1"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.136.0",
+    "aws-cdk-lib": "^2.136.1",
     "constructs": "^10.3.0"
   }
 }
