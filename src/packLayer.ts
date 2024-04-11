@@ -103,7 +103,7 @@ export const packLayer = async ({
 	})
 
 	const zipFileName = await new Promise<string>((resolve) => {
-		const zipFileName = path.join(base, 'dist', 'layers', `${id}.zip`)
+		const zipFileName = path.join(dist, `${id}.zip`)
 		zipfile.outputStream
 			.pipe(createWriteStream(zipFileName))
 			.on('close', () => {
