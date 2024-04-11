@@ -12,17 +12,29 @@ export type PackedLayer = { layerZipFile: string; hash: string }
 export const packLayer = async ({
 	id,
 	dependencies,
+	baseDir,
+	distDir,
 }: {
 	id: string
 	dependencies: string[]
+	/**
+	 * @default process.cwd()
+	 */
+	baseDir?: string
+	/**
+	 * @default ${baseDir}/dist/layers
+	 */
+	distDir?: string
 }): Promise<PackedLayer> => {
-	const packageJsonFile = path.join(process.cwd(), 'package.json')
-	const packageLockJsonFile = path.join(process.cwd(), 'package-lock.json')
+	const base = baseDir ?? process.cwd()
+	const dist = distDir ?? path.join(base, 'dist', 'layers')
+	const packageJsonFile = path.join(base, 'package.json')
+	const packageLockJsonFile = path.join(base, 'package-lock.json')
 	const { dependencies: deps, devDependencies: devDeps } = JSON.parse(
 		await readFile(packageJsonFile, 'utf-8'),
 	)
 
-	const layerDir = path.join(process.cwd(), 'dist', 'layers', id)
+	const layerDir = path.join(dist, id)
 	const nodejsDir = path.join(layerDir, 'nodejs')
 
 	try {
@@ -91,7 +103,7 @@ export const packLayer = async ({
 	})
 
 	const zipFileName = await new Promise<string>((resolve) => {
-		const zipFileName = path.join(process.cwd(), 'dist', 'layers', `${id}.zip`)
+		const zipFileName = path.join(base, 'dist', 'layers', `${id}.zip`)
 		zipfile.outputStream
 			.pipe(createWriteStream(zipFileName))
 			.on('close', () => {
