@@ -1,6 +1,6 @@
 import { spawn } from 'child_process'
 import { createWriteStream } from 'fs'
-import { copyFile, mkdir, readFile, rm, writeFile } from 'fs/promises'
+import { copyFile, mkdir, readFile, rm, stat, writeFile } from 'fs/promises'
 import { glob } from 'glob'
 import path from 'path'
 import { ZipFile } from 'yazl'
@@ -60,6 +60,11 @@ export const packLayer = async ({
 		{} as Record<string, string>,
 	)
 
+	const checkSumFiles = [
+		// Include this script, so artefact is updated if the way it's built is changed
+		fileURLToPath(import.meta.url),
+	]
+
 	const packageJSON = path.join(nodejsDir, 'package.json')
 	await writeFile(
 		packageJSON,
@@ -68,13 +73,24 @@ export const packLayer = async ({
 		}),
 		'utf-8',
 	)
-	const packageLock = path.join(nodejsDir, 'package-lock.json')
-	await copyFile(packageLockJsonFile, packageLock)
+	checkSumFiles.push(packageJSON)
+
+	let hasLockFile = true
+	try {
+		// package-lock.json may not exist
+		await stat(packageLockJsonFile)
+		const packageLock = path.join(nodejsDir, 'package-lock.json')
+		await copyFile(packageLockJsonFile, packageLock)
+		checkSumFiles.push(packageLock)
+	} catch {
+		hasLockFile = false
+		// pass
+	}
 
 	await new Promise<void>((resolve, reject) => {
 		const [cmd, ...args] = [
 			'npm',
-			'ci',
+			hasLockFile ? 'ci' : 'i',
 			'--ignore-scripts',
 			'--only=prod',
 			'--no-audit',
@@ -116,12 +132,7 @@ export const packLayer = async ({
 		layerZipFile: zipFileName,
 		hash: checkSumOfStrings([
 			JSON.stringify(dependencies),
-			await checkSumOfFiles([
-				packageJSON,
-				packageLock,
-				// Include this script, so artefact is updated if the way it's built is changed
-				fileURLToPath(import.meta.url),
-			]),
+			await checkSumOfFiles(checkSumFiles),
 		]),
 	}
 }
