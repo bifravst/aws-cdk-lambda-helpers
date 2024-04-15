@@ -110,7 +110,7 @@
   ],
   "prettier": "@bifravst/prettier-config",
   "dependencies": {
-    "@swc/core": "1.4.13",
+    "@swc/core": "1.4.14",
     "glob": "10.3.12",
     "typescript": "5.4.5",
     "yazl": "2.5.1"
