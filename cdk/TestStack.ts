@@ -5,9 +5,10 @@ import {
 	aws_lambda as Lambda,
 	Stack,
 } from 'aws-cdk-lib'
-import { LambdaLogGroup, LambdaSource } from '../src/cdk.js'
+import { LambdaSource } from '../src/cdk.js'
 import type { PackedLayer } from '../src/layer.js'
 import type { TestLambdas } from './packTestLambdas.js'
+import { PackedLambdaFn } from '../src/PackedLambdaFn.js'
 
 export class TestStack extends Stack {
 	public constructor(
@@ -34,22 +35,13 @@ export class TestStack extends Stack {
 			compatibleRuntimes: [Lambda.Runtime.NODEJS_20_X],
 		})
 
-		const fn = new Lambda.Function(this, 'fn', {
-			handler: lambdaSources.test.handler,
-			architecture: Lambda.Architecture.ARM_64,
-			runtime: Lambda.Runtime.NODEJS_20_X,
+		const lambda = new PackedLambdaFn(this, 'fn', lambdaSources.test, {
 			timeout: Duration.seconds(1),
-			memorySize: 1792,
-			code: new LambdaSource(this, lambdaSources.test).code,
 			description: 'Returns a ULID',
-			environment: {
-				NODE_NO_WARNINGS: '1',
-			},
 			layers: [baseLayer],
-			...new LambdaLogGroup(this, 'fnLogs'),
 		})
 
-		const url = fn.addFunctionUrl({
+		const url = lambda.fn.addFunctionUrl({
 			authType: Lambda.FunctionUrlAuthType.NONE,
 		})
 
