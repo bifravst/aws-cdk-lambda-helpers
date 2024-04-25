@@ -54,5 +54,7 @@ export class PackedLambdaFn extends Construct {
 			handler: source.handler,
 			code: new LambdaSource(this, source).code,
 		})
+		this.fn.node.addMetadata('packedLambda:id', source.id)
+		this.fn.node.addMetadata('packedLambda:hash', source.hash)
 	}
 }
