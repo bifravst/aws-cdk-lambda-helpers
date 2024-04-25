@@ -14,6 +14,7 @@ export const packLayer = async ({
 	dependencies,
 	baseDir,
 	distDir,
+	installCommand,
 }: {
 	id: string
 	dependencies: string[]
@@ -25,6 +26,13 @@ export const packLayer = async ({
 	 * @default ${baseDir}/dist/layers
 	 */
 	distDir?: string
+	/**
+	 * Returns the command to run, the first element is the command (e.g. `npm`) and the rest are its arguments.
+	 */
+	installCommand?: (args: {
+		packageFile: string
+		packageLockFile: string
+	}) => [string, ...Array<string>]
 }): Promise<PackedLayer> => {
 	const base = baseDir ?? process.cwd()
 	const dist = distDir ?? path.join(base, 'dist', 'layers')
@@ -88,7 +96,10 @@ export const packLayer = async ({
 	}
 
 	await new Promise<void>((resolve, reject) => {
-		const [cmd, ...args] = [
+		const [cmd, ...args] = installCommand?.({
+			packageFile: packageJSON,
+			packageLockFile: packageLockJsonFile,
+		}) ?? [
 			'npm',
 			hasLockFile ? 'ci' : 'i',
 			'--ignore-scripts',
