@@ -1,10 +1,5 @@
-import {
-	App,
-	CfnOutput,
-	Duration,
-	aws_lambda as Lambda,
-	Stack,
-} from 'aws-cdk-lib'
+import type { App } from 'aws-cdk-lib'
+import { CfnOutput, Duration, aws_lambda as Lambda, Stack } from 'aws-cdk-lib'
 import { LambdaSource } from '../src/cdk.js'
 import type { PackedLayer } from '../src/layer.js'
 import type { TestLambdas } from './packTestLambdas.js'
