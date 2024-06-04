@@ -58,7 +58,7 @@
     "@nordicsemiconductor/cloudformation-helpers": "^9.0.3",
     "@nordicsemiconductor/from-env": "^3.0.1",
     "@types/aws-lambda": "8.10.138",
-    "@types/node": "20.14.0",
+    "@types/node": "20.14.1",
     "@types/yazl": "2.4.5",
     "cdk": "2.144.0",
     "commitlint": "19.3.0",
