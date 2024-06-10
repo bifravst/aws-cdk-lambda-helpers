@@ -1,4 +1,9 @@
-import { aws_lambda as Lambda, Duration, Stack } from 'aws-cdk-lib'
+import {
+	aws_lambda as Lambda,
+	Duration,
+	Stack,
+	type aws_logs as Logs,
+} from 'aws-cdk-lib'
 import { Construct } from 'constructs'
 import { LambdaLogGroup } from './LambdaLogGroup.js'
 import { Permissions as SettingsPermissions } from '@bifravst/aws-ssm-settings-helpers/cdk'
@@ -23,6 +28,7 @@ import { LambdaSource } from './LambdaSource.js'
  */
 export class PackedLambdaFn extends Construct {
 	public readonly fn: Lambda.Function
+	public readonly logGroup: Logs.ILogGroup
 	public constructor(
 		parent: Construct,
 		id: string,
@@ -32,6 +38,8 @@ export class PackedLambdaFn extends Construct {
 		super(parent, id)
 
 		const { environment, initialPolicy, ...rest } = props
+
+		this.logGroup = new LambdaLogGroup(this, 'fnLogs').logGroup
 
 		this.fn = new Lambda.Function(this, 'fn', {
 			architecture: Lambda.Architecture.ARM_64,
@@ -49,8 +57,8 @@ export class PackedLambdaFn extends Construct {
 				...(initialPolicy ?? []),
 				SettingsPermissions(Stack.of(this)),
 			],
-			...new LambdaLogGroup(this, 'fnLogs'),
 			...rest,
+			logGroup: this.logGroup,
 			handler: source.handler,
 			code: new LambdaSource(this, source).code,
 		})
