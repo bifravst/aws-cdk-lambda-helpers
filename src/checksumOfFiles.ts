@@ -33,7 +33,7 @@ const hashFile = async (file: string) => {
 			})
 		})
 	}
-	return hashCache[file] as string
+	return hashCache[file]
 }
 
 /**
