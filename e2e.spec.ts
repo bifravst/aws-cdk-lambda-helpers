@@ -1,9 +1,9 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { stackOutput } from '@nordicsemiconductor/cloudformation-helpers'
+import { stackOutput } from '@bifravst/cloudformation-helpers'
 import { CloudFormationClient } from '@aws-sdk/client-cloudformation'
 import type { StackOutputs } from './cdk/TestStack.js'
-import { fromEnv } from '@nordicsemiconductor/from-env'
+import { fromEnv } from '@bifravst/from-env'
 
 void describe('end-to-end tests', () => {
 	void it('should return an ULID', async () => {
