@@ -51,6 +51,8 @@ export class PackedLambdaFn extends Construct {
 				NODE_NO_WARNINGS: '1',
 				STACK_NAME: Stack.of(this).stackName,
 				DISABLE_METRICS: this.node.tryGetContext('isTest') === true ? '1' : '0',
+				PACKED_LAMBDA_ID: source.id,
+				PACKED_LAMBDA_HASH: source.hash,
 				...environment,
 			},
 			initialPolicy: [
