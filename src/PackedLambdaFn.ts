@@ -1,14 +1,14 @@
+import { Permissions as SettingsPermissions } from '@bifravst/aws-ssm-settings-helpers/cdk'
 import {
-	aws_lambda as Lambda,
 	Duration,
+	aws_lambda as Lambda,
 	Stack,
 	type aws_logs as Logs,
 } from 'aws-cdk-lib'
 import { Construct } from 'constructs'
 import { LambdaLogGroup } from './LambdaLogGroup.js'
-import { Permissions as SettingsPermissions } from '@bifravst/aws-ssm-settings-helpers/cdk'
-import type { PackedLambda } from './packLambda.js'
 import { LambdaSource } from './LambdaSource.js'
+import type { PackedLambda } from './packLambda.js'
 
 /**
  * Creates a Lambda function with useful defaults:

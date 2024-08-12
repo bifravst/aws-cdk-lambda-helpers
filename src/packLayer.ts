@@ -2,10 +2,10 @@ import { spawn } from 'child_process'
 import { createWriteStream } from 'fs'
 import { copyFile, mkdir, readFile, rm, stat, writeFile } from 'fs/promises'
 import { glob } from 'glob'
+import { fileURLToPath } from 'node:url'
 import path from 'path'
 import { ZipFile } from 'yazl'
 import { checkSumOfFiles, checkSumOfStrings } from './checksumOfFiles.js'
-import { fileURLToPath } from 'node:url'
 
 export type PackedLayer = { layerZipFile: string; hash: string }
 
