@@ -1,12 +1,12 @@
 import swc from '@swc/core'
 import { createWriteStream } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { parse } from 'path'
 import yazl from 'yazl'
 import { checkSumOfFiles } from './checksumOfFiles.js'
 import { commonParent } from './commonParent.js'
 import { findDependencies } from './findDependencies.js'
-import { fileURLToPath } from 'node:url'
-import path from 'node:path'
 
 export type PackedLambda = {
 	id: string

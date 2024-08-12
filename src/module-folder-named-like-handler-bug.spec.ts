@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict'
-import { it, describe } from 'node:test'
-import { ImportFromFolderNameError, packLambda } from './packLambda.js'
-import path, { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import fs from 'node:fs/promises'
 import os from 'node:os'
+import path, { dirname } from 'node:path'
+import { describe, it } from 'node:test'
+import { fileURLToPath } from 'node:url'
+import { ImportFromFolderNameError, packLambda } from './packLambda.js'
 
 const tmpDir = os.tmpdir()
 
