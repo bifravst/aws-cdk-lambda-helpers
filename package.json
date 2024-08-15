@@ -60,7 +60,7 @@
     "@types/aws-lambda": "8.10.143",
     "@types/node": "20.14.15",
     "@types/yazl": "2.4.5",
-    "cdk": "2.151.0",
+    "cdk": "2.152.0",
     "commitlint": "19.4.0",
     "husky": "9.1.4",
     "id128": "1.6.6",
@@ -114,7 +114,7 @@
   },
   "peerDependencies": {
     "@bifravst/aws-ssm-settings-helpers": "^1.2.11",
-    "aws-cdk-lib": "^2.151.0",
+    "aws-cdk-lib": "^2.152.0",
     "constructs": "^10.3.0"
   }
 }
