@@ -23,7 +23,7 @@ import type { PackedLambda } from './packLambda.js'
  *   NODE_NO_WARNINGS: disabled to get rid of Node.js warnings in the logs
  *   STACK_NAME: the current stack name
  *   DISABLE_METRICS: set to '1' of 'isTest'===true in the context
- * - a LambdaLogGroup
+ * - a LambdaLogGroup (if not provided)
  * - policies that allow to access all SSM parameters below the current stack name
  */
 export class PackedLambdaFn extends Construct {
@@ -39,7 +39,8 @@ export class PackedLambdaFn extends Construct {
 
 		const { environment, initialPolicy, ...rest } = props
 
-		this.logGroup = new LambdaLogGroup(this, 'fnLogs').logGroup
+		this.logGroup =
+			props.logGroup ?? new LambdaLogGroup(this, 'fnLogs').logGroup
 
 		this.fn = new Lambda.Function(this, 'fn', {
 			architecture: Lambda.Architecture.ARM_64,
