@@ -53,7 +53,7 @@
   "devDependencies": {
     "@aws-sdk/client-cloudformation": "3.662.0",
     "@bifravst/cloudformation-helpers": "9.1.1",
-    "@bifravst/eslint-config-typescript": "6.1.16",
+    "@bifravst/eslint-config-typescript": "6.1.17",
     "@bifravst/from-env": "3.0.2",
     "@bifravst/prettier-config": "1.1.1",
     "@commitlint/config-conventional": "19.5.0",
