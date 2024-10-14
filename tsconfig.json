@@ -15,6 +15,7 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noEmit": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true
   }
 }
