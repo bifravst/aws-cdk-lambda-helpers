@@ -58,7 +58,7 @@
     "@bifravst/prettier-config": "1.1.1",
     "@commitlint/config-conventional": "19.5.0",
     "@types/aws-lambda": "8.10.145",
-    "@types/node": "22.7.6",
+    "@types/node": "22.7.7",
     "@types/yazl": "2.4.5",
     "cdk": "2.162.1",
     "commitlint": "19.5.0",
