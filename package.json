@@ -113,7 +113,7 @@
     "yazl": "2.5.1"
   },
   "peerDependencies": {
-    "@bifravst/aws-ssm-settings-helpers": "^1.2.55",
+    "@bifravst/aws-ssm-settings-helpers": "^1.2.56",
     "aws-cdk-lib": "^2.165.0",
     "constructs": "^10.4.2"
   }
