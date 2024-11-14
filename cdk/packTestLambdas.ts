@@ -1,5 +1,8 @@
+import path from 'node:path'
 import type { PackedLambda } from '../src/packLambda.js'
 import { packLambdaFromPath } from '../src/packLambdaFromPath.js'
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 export type TestLambdas = {
 	test: PackedLambda
@@ -14,5 +17,6 @@ export const packTestLambdas = async (): Promise<TestLambdas> => ({
 	testAliasImports: await packLambdaFromPath({
 		id: 'testAliasImports',
 		sourceFilePath: 'cdk/lambda-with-subpath.ts',
+		tsConfigFilePath: path.join(__dirname, '..', 'tsconfig.json'),
 	}),
 })
