@@ -49,7 +49,7 @@ export const packLambda = async ({
 	debug?: (label: string, info: string) => void
 	progress?: (label: string, info: string) => void
 }): Promise<{ handler: string; hash: string }> => {
-	const deps = findDependencies({
+	const { dependencies: deps, importsSubpathPatterns } = findDependencies({
 		sourceFilePath,
 		tsConfigFilePath,
 	})
@@ -103,6 +103,7 @@ export const packLambda = async ({
 		Buffer.from(
 			JSON.stringify({
 				type: 'module',
+				imports: importsSubpathPatterns,
 			}),
 			'utf-8',
 		),

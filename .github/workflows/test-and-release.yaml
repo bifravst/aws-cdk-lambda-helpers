@@ -58,6 +58,12 @@ jobs:
 
       - run: npx cdk deploy --require-approval never
 
+      - name: Upload dist folder as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
+
       - name: Run end-to-end tests
         run: npx tsx --test e2e.spec.ts
 

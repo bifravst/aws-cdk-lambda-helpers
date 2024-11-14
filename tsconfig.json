@@ -16,7 +16,12 @@
     "noUnusedLocals": true,
     "noEmit": true,
     "verbatimModuleSyntax": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "#lib": ["src/test-data/resolve-paths/foo/index.ts"],
+      "#lib/*": ["src/test-data/resolve-paths/foo/*"]
+    }
   },
   "exclude": ["src/test-data/**"]
 }
