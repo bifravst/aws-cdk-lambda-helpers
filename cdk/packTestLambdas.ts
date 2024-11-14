@@ -6,5 +6,8 @@ export type TestLambdas = {
 }
 
 export const packTestLambdas = async (): Promise<TestLambdas> => ({
-	test: await packLambdaFromPath('test', 'cdk/lambda.ts'),
+	test: await packLambdaFromPath({
+		id: 'test',
+		sourceFilePath: 'cdk/lambda.ts',
+	}),
 })
