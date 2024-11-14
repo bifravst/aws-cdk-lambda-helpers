@@ -8,7 +8,7 @@ const __dirname = new URL('.', import.meta.url).pathname
 
 void describe('findDependencies()', () => {
 	void it('should honor tsconfig.json paths', () => {
-		const dependencies = findDependencies({
+		const { dependencies } = findDependencies({
 			sourceFilePath: path.join(
 				__dirname,
 				'test-data',
@@ -36,5 +36,27 @@ void describe('findDependencies()', () => {
 			true,
 			'Should include the module file',
 		)
+	})
+
+	void it('should return an import map', () => {
+		const { importsSubpathPatterns } = findDependencies({
+			sourceFilePath: path.join(
+				__dirname,
+				'test-data',
+				'resolve-paths',
+				'lambda.ts',
+			),
+			tsConfigFilePath: path.join(
+				__dirname,
+				'test-data',
+				'resolve-paths',
+				'tsconfig.json',
+			),
+		})
+
+		assert.deepEqual(importsSubpathPatterns, {
+			'#foo': './foo/index.js',
+			'#foo/*': './foo/*',
+		})
 	})
 })
