@@ -31,6 +31,13 @@ void describe('findDependencies()', () => {
 		)
 		assert.equal(
 			dependencies.includes(
+				path.join(__dirname, 'test-data', 'resolve-paths', 'foo', '1.ts'),
+			),
+			true,
+			'Should include the module referenced in the index.ts file',
+		)
+		assert.equal(
+			dependencies.includes(
 				path.join(__dirname, 'test-data', 'resolve-paths', 'foo', '2.ts'),
 			),
 			true,

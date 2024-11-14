@@ -46,7 +46,11 @@ export const findDependencies = (args: {
 	)
 
 	const parseChild = (node: ts.Node) => {
-		if (node.kind !== ts.SyntaxKind.ImportDeclaration) return
+		if (
+			node.kind !== ts.SyntaxKind.ImportDeclaration &&
+			node.kind !== ts.SyntaxKind.ExportDeclaration
+		)
+			return
 		const moduleSpecifier = (
 			(node as ImportDeclaration).moduleSpecifier as StringLiteral
 		).text
