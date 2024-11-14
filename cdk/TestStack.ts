@@ -45,9 +45,31 @@ export class TestStack extends Stack {
 			description: 'API endpoint',
 			value: url.url,
 		})
+
+		const lambdaAliasImports = new PackedLambdaFn(
+			this,
+			'aliasImportsFn',
+			lambdaSources.testAliasImports,
+			{
+				timeout: Duration.seconds(1),
+				description: 'Uses aliased imports',
+				layers: [baseLayer],
+			},
+		)
+
+		const urlAliasImports = lambdaAliasImports.fn.addFunctionUrl({
+			authType: Lambda.FunctionUrlAuthType.NONE,
+		})
+
+		new CfnOutput(this, 'lambdaAliasImportsURL', {
+			exportName: `${this.stackName}:lambdaAliasImportsURL`,
+			description: 'API endpoint for the lambda using alias imports',
+			value: urlAliasImports.url,
+		})
 	}
 }
 
 export type StackOutputs = {
 	lambdaURL: string
+	lambdaAliasImportsURL: string
 }
