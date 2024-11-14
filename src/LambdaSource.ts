@@ -11,12 +11,12 @@ export class LambdaSource extends Construct {
 	public readonly code: Lambda.S3Code
 	constructor(
 		parent: Construct,
-		packedLambda: Pick<PackedLambda, 'zipFile' | 'id' | 'hash'>,
+		packedLambda: Pick<PackedLambda, 'zipFilePath' | 'id' | 'hash'>,
 	) {
 		super(parent, `${packedLambda.id}Source`)
 
 		const asset = new S3Assets.Asset(this, 'asset', {
-			path: packedLambda.zipFile,
+			path: packedLambda.zipFilePath,
 			assetHash: packedLambda.hash,
 			assetHashType: AssetHashType.CUSTOM,
 		})

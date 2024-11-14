@@ -23,7 +23,7 @@ export class TestStack extends Stack {
 			layerVersionName: `${Stack.of(this).stackName}-baseLayer`,
 			code: new LambdaSource(this, {
 				id: 'baseLayer',
-				zipFile: layer.layerZipFile,
+				zipFilePath: layer.layerZipFilePath,
 				hash: layer.hash,
 			}).code,
 			compatibleArchitectures: [Lambda.Architecture.ARM_64],

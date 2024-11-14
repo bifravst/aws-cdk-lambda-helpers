@@ -7,7 +7,7 @@ import path from 'path'
 import { ZipFile } from 'yazl'
 import { checkSumOfFiles, checkSumOfStrings } from './checksumOfFiles.js'
 
-export type PackedLayer = { layerZipFile: string; hash: string }
+export type PackedLayer = { layerZipFilePath: string; hash: string }
 
 export const packLayer = async ({
 	id,
@@ -30,8 +30,8 @@ export const packLayer = async ({
 	 * Returns the command to run, the first element is the command (e.g. `npm`) and the rest are its arguments.
 	 */
 	installCommand?: (args: {
-		packageFile: string
-		packageLockFile: string
+		packageFilePath: string
+		packageLockFilePath: string
 	}) => [string, ...Array<string>]
 }): Promise<PackedLayer> => {
 	const base = baseDir ?? process.cwd()
@@ -97,8 +97,8 @@ export const packLayer = async ({
 
 	await new Promise<void>((resolve, reject) => {
 		const [cmd, ...args] = installCommand?.({
-			packageFile: packageJSON,
-			packageLockFile: packageLockJsonFile,
+			packageFilePath: packageJSON,
+			packageLockFilePath: packageLockJsonFile,
 		}) ?? [
 			'npm',
 			hasLockFile ? 'ci' : 'i',
@@ -140,7 +140,7 @@ export const packLayer = async ({
 	})
 
 	return {
-		layerZipFile: zipFileName,
+		layerZipFilePath: zipFileName,
 		hash: checkSumOfStrings([
 			JSON.stringify(dependencies),
 			await checkSumOfFiles(checkSumFiles),

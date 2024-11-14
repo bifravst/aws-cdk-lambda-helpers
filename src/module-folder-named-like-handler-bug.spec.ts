@@ -14,14 +14,14 @@ void describe('packLambda()', () => {
 		assert.rejects(
 			async () =>
 				packLambda({
-					sourceFile: path.join(
+					sourceFilePath: path.join(
 						dirname(fileURLToPath(import.meta.url)),
 						'test-data',
 						'module-folder-named-like-handler-bug',
 						'same-level',
 						'acme.ts',
 					),
-					zipFile: path.join(
+					zipFilePath: path.join(
 						await fs.mkdtemp(`${tmpDir}${path.sep}`),
 						'acme.zip',
 					),
@@ -32,7 +32,7 @@ void describe('packLambda()', () => {
 	void it('should not fail if it a folder with the same name is on a different level', async () =>
 		assert.doesNotReject(async () =>
 			packLambda({
-				sourceFile: path.join(
+				sourceFilePath: path.join(
 					dirname(fileURLToPath(import.meta.url)),
 					'test-data',
 					'module-folder-named-like-handler-bug',
@@ -40,7 +40,7 @@ void describe('packLambda()', () => {
 					'lambda',
 					'acme.ts',
 				),
-				zipFile: path.join(
+				zipFilePath: path.join(
 					await fs.mkdtemp(`${tmpDir}${path.sep}`),
 					'acme.zip',
 				),

@@ -19,12 +19,12 @@ export const checkSumOfStrings = (strings: string[]): string => {
 }
 
 const hashCache: { [key: string]: string } = {}
-const hashFile = async (file: string) => {
-	if (hashCache[file] === undefined) {
-		hashCache[file] = await new Promise((resolve) => {
+const hashFile = async (filePath: string) => {
+	if (hashCache[filePath] === undefined) {
+		hashCache[filePath] = await new Promise((resolve) => {
 			const hash = crypto.createHash('sha1')
 			hash.setEncoding('hex')
-			const fileStream = fs.createReadStream(file)
+			const fileStream = fs.createReadStream(filePath)
 			fileStream.pipe(hash, { end: false })
 			fileStream.on('end', () => {
 				hash.end()
@@ -33,7 +33,7 @@ const hashFile = async (file: string) => {
 			})
 		})
 	}
-	return hashCache[file]
+	return hashCache[filePath]
 }
 
 /**

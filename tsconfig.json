@@ -17,5 +17,6 @@
     "noEmit": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true
-  }
+  },
+  "exclude": ["src/test-data/**"]
 }

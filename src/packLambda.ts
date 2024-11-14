@@ -10,15 +10,15 @@ import { findDependencies } from './findDependencies.js'
 
 export type PackedLambda = {
 	id: string
-	zipFile: string
+	zipFilePath: string
 	handler: string
 	hash: string
 }
 
 const removeCommonAncestor =
 	(parentDir: string) =>
-	(file: string): string => {
-		const p = parse(file)
+	(filePath: string): string => {
+		const p = parse(filePath)
 		const jsFileName = [
 			p.dir.replace(parentDir.slice(0, parentDir.length - 1), ''),
 			`${p.name}.js`,
@@ -34,24 +34,32 @@ const removeCommonAncestor =
  * In the bundle we only include code that's not in the layer.
  */
 export const packLambda = async ({
-	sourceFile,
-	zipFile,
+	sourceFilePath,
+	zipFilePath,
+	tsConfigFilePath,
 	debug,
 	progress,
 }: {
-	sourceFile: string
-	zipFile: string
+	sourceFilePath: string
+	zipFilePath: string
+	/**
+	 * Pass the path to the tsconfig.json file if you want to use paths from the tsconfig.json file.
+	 */
+	tsConfigFilePath?: string
 	debug?: (label: string, info: string) => void
 	progress?: (label: string, info: string) => void
 }): Promise<{ handler: string; hash: string }> => {
-	const deps = findDependencies(sourceFile)
-	const lambdaFiles = [sourceFile, ...deps]
+	const deps = findDependencies({
+		sourceFilePath,
+		tsConfigFilePath,
+	})
+	const lambdaFiles = [sourceFilePath, ...deps]
 
 	const zipfile = new yazl.ZipFile()
 
 	const stripCommon = removeCommonAncestor(commonParent(lambdaFiles))
 
-	const handler = stripCommon(sourceFile)
+	const handler = stripCommon(sourceFilePath)
 
 	// Make sure that the handler does not import from a folder with the same name in the folder
 	const handlerInfo = path.parse(handler)
@@ -103,14 +111,16 @@ export const packLambda = async ({
 	progress?.(`added`, 'package.json')
 
 	await new Promise<void>((resolve) => {
-		zipfile.outputStream.pipe(createWriteStream(zipFile)).on('close', () => {
-			resolve()
-		})
+		zipfile.outputStream
+			.pipe(createWriteStream(zipFilePath))
+			.on('close', () => {
+				resolve()
+			})
 		zipfile.end()
 	})
-	progress?.(`written`, zipFile)
+	progress?.(`written`, zipFilePath)
 
-	return { handler: stripCommon(sourceFile), hash }
+	return { handler: stripCommon(sourceFilePath), hash }
 }
 
 /**

@@ -4,7 +4,7 @@ import { packLambda, type PackedLambda } from './packLambda.js'
 
 export const packLambdaFromPath = async (
 	id: string,
-	sourceFile: string,
+	sourceFilePath: string,
 	handlerFunction = 'handler',
 	/**
 	 * @default process.cwd()
@@ -24,12 +24,12 @@ export const packLambdaFromPath = async (
 	}
 	const zipFile = path.join(distDir, `${id}.zip`)
 	const { handler, hash } = await packLambda({
-		sourceFile: path.join(baseDir, sourceFile),
-		zipFile,
+		sourceFilePath: path.join(baseDir, sourceFilePath),
+		zipFilePath: zipFile,
 	})
 	return {
 		id,
-		zipFile,
+		zipFilePath: zipFile,
 		handler: handler.replace('.js', `.${handlerFunction}`),
 		hash,
 	}

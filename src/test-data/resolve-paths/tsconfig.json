@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "#foo": ["foo/index.ts"],
+      "#foo/*": ["foo/*"]
+    }
+  }
+}
