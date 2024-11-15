@@ -110,7 +110,9 @@ export const packLambda = async ({
 				type: 'module',
 				imports: importsSubpathPatterns,
 				dependencies: Object.fromEntries(
-					packages.values().map((pkg) => [pkg, '*']),
+					[...packages.values()]
+						.sort((a, b) => a.localeCompare(b))
+						.map((pkg) => [pkg, '*']),
 				),
 			}),
 			'utf-8',
