@@ -106,7 +106,6 @@ export const findDependencies = (args: {
 				),
 			]
 				.filter((p) => !p.startsWith('node:'))
-				.filter((p) => !p.startsWith('@aws-crypto/'))
 				.filter((p) => !p.startsWith('@aws-sdk/'))
 				.map((d) => {
 					if (d.startsWith('@')) {
