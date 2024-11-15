@@ -35,7 +35,7 @@ export const findDependencies = (args: {
 	const visited = args.visited ?? []
 	const dependencies = args.imports ?? []
 	const packages = args.packages ?? new Set<string>()
-	let importsSubpathPatterns = args.importsSubpathPatterns ?? {}
+	const importsSubpathPatterns = args.importsSubpathPatterns ?? {}
 	if (visited.includes(sourceFilePath))
 		return {
 			dependencies,
@@ -64,17 +64,13 @@ export const findDependencies = (args: {
 		const moduleSpecifier = (
 			(node as ImportDeclaration).moduleSpecifier as StringLiteral
 		).text
-		const {
-			resolvedPath: file,
-			importsSubpathPatterns: updatedImportsSubpathPatterns,
-		} = resolve({
+		const { resolvedPath: file } = resolve({
 			moduleSpecifier,
 			sourceFilePath,
 			tsConfigFilePath,
 			tsConfig,
 			importsSubpathPatterns,
 		})
-		importsSubpathPatterns = updatedImportsSubpathPatterns
 		try {
 			const s = statSync(file)
 			if (!s.isDirectory()) dependencies.push(file)
@@ -144,7 +140,6 @@ const resolve = ({
 	  }
 )): {
 	resolvedPath: string
-	importsSubpathPatterns: Record<string, string>
 } => {
 	if (moduleSpecifier.startsWith('.'))
 		return {
@@ -156,7 +151,6 @@ const resolve = ({
 				// Example: import { Network, notifyClients } from './notifyClients.js'
 				// The source file for that is actually in './notifyClients.ts'
 				.replace(/\.js$/, '.ts'),
-			importsSubpathPatterns,
 		}
 	if (
 		tsConfigFilePath !== undefined &&
@@ -172,16 +166,13 @@ const resolve = ({
 					tsConfig.compilerOptions.baseUrl,
 					resolvedPath,
 				)
+				importsSubpathPatterns[key] = [
+					tsConfig.compilerOptions.baseUrl,
+					path.sep,
+					resolvedPath.replace(/\.ts$/, '.js'),
+				].join('')
 				return {
 					resolvedPath: fullResolvedPath,
-					importsSubpathPatterns: {
-						...importsSubpathPatterns,
-						[key]: [
-							tsConfig.compilerOptions.baseUrl,
-							path.sep,
-							resolvedPath.replace(/\.ts$/, '.js'),
-						].join(''),
-					},
 				}
 			}
 			// Wildcard match
@@ -189,6 +180,11 @@ const resolve = ({
 			const rx = new RegExp(`^${key.replace('*', '(?<wildcard>.*)')}`)
 			const maybeMatch = rx.exec(moduleSpecifier)
 			if (maybeMatch?.groups?.wildcard === undefined) continue
+			importsSubpathPatterns[key] = [
+				tsConfig.compilerOptions.baseUrl,
+				path.sep,
+				resolvedPath.replace(/\.ts$/, '.js'),
+			].join('')
 			return {
 				resolvedPath: path
 					.resolve(
@@ -198,19 +194,10 @@ const resolve = ({
 					)
 					// Same as above, replace `.js` with `.ts`
 					.replace(/\.js$/, '.ts'),
-				importsSubpathPatterns: {
-					...importsSubpathPatterns,
-					[key]: [
-						tsConfig.compilerOptions.baseUrl,
-						path.sep,
-						resolvedPath.replace(/\.ts$/, '.js'),
-					].join(''),
-				},
 			}
 		}
 	}
 	return {
 		resolvedPath: moduleSpecifier,
-		importsSubpathPatterns,
 	}
 }
