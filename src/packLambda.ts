@@ -57,7 +57,10 @@ export const packLambda = async ({
 		sourceFilePath,
 		tsConfigFilePath,
 	})
-	debug?.(`dependencies`, [...packages].join(', '))
+	debug?.(`${sourceFilePath}: dependencies`, [...packages].join(', '))
+	Object.entries(importsSubpathPatterns).forEach(([k, v]) => {
+		debug?.(`${sourceFilePath}:importsSubpathPattern`, `${k} -> ${v}`)
+	})
 	const lambdaFiles = [sourceFilePath, ...deps]
 
 	const zipfile = new yazl.ZipFile()
