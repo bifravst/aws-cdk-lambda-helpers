@@ -9,6 +9,8 @@ export const packLambdaFromPath = async ({
 	baseDir: baseDirArg,
 	distDir: distDirArg,
 	tsConfigFilePath,
+	debug,
+	progress,
 }: {
 	id: string
 	sourceFilePath: string
@@ -25,6 +27,8 @@ export const packLambdaFromPath = async ({
 	 * Pass the path to the tsconfig.json file if you want to use paths from the tsconfig.json file.
 	 */
 	tsConfigFilePath?: string
+	debug?: (label: string, info: string) => void
+	progress?: (label: string, info: string) => void
 }): Promise<PackedLambda> => {
 	const distDir = distDirArg ?? path.join(process.cwd(), 'dist', 'lambdas')
 	const baseDir = baseDirArg ?? process.cwd()
@@ -41,6 +45,8 @@ export const packLambdaFromPath = async ({
 		sourceFilePath: path.join(baseDir, sourceFilePath),
 		zipFilePath: zipFile,
 		tsConfigFilePath,
+		debug,
+		progress,
 	})
 	return {
 		id,
