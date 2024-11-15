@@ -31,6 +31,11 @@ void describe('findDependencies()', () => {
 			true,
 			'Should include the top-level package only',
 		)
+		assert.equal(
+			packages.has('@aws-sdk/client-dynamodb'),
+			false,
+			'Should not include AWS SDK packages',
+		)
 	})
 
 	void it('should honor tsconfig.json paths', () => {
