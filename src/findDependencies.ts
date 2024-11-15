@@ -16,6 +16,7 @@ export const findDependencies = (args: {
 	sourceFilePath: string
 	imports?: string[]
 	visited?: string[]
+	packages?: Set<string>
 	tsConfigFilePath?: string
 	importsSubpathPatterns?: Record<string, string>
 }): {
@@ -25,13 +26,18 @@ export const findDependencies = (args: {
 	 * @see https://nodejs.org/api/packages.html#subpath-patterns
 	 */
 	importsSubpathPatterns: Record<string, string>
+	/**
+	 * The external packages that the source file depends on
+	 */
+	packages: Set<string>
 } => {
 	const sourceFilePath = args.sourceFilePath
 	const visited = args.visited ?? []
 	const dependencies = args.imports ?? []
+	const packages = args.packages ?? new Set<string>()
 	let importsSubpathPatterns = args.importsSubpathPatterns ?? {}
 	if (visited.includes(sourceFilePath))
-		return { dependencies, importsSubpathPatterns }
+		return { dependencies, importsSubpathPatterns, packages }
 	const tsConfigFilePath = args.tsConfigFilePath
 	const tsConfig =
 		tsConfigFilePath !== undefined
@@ -71,6 +77,7 @@ export const findDependencies = (args: {
 		} catch {
 			// Module or file not found
 			visited.push(file)
+			packages.add(moduleSpecifier)
 		}
 	}
 	ts.forEachChild(fileNode, parseChild)
@@ -83,10 +90,11 @@ export const findDependencies = (args: {
 			visited,
 			tsConfigFilePath,
 			importsSubpathPatterns,
+			packages,
 		})
 	}
 
-	return { dependencies, importsSubpathPatterns }
+	return { dependencies, importsSubpathPatterns, packages }
 }
 
 const resolve = ({

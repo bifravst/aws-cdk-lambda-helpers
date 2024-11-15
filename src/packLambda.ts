@@ -49,10 +49,15 @@ export const packLambda = async ({
 	debug?: (label: string, info: string) => void
 	progress?: (label: string, info: string) => void
 }): Promise<{ handler: string; hash: string }> => {
-	const { dependencies: deps, importsSubpathPatterns } = findDependencies({
+	const {
+		dependencies: deps,
+		importsSubpathPatterns,
+		packages,
+	} = findDependencies({
 		sourceFilePath,
 		tsConfigFilePath,
 	})
+	debug?.(`dependencies`, [...packages].join(', '))
 	const lambdaFiles = [sourceFilePath, ...deps]
 
 	const zipfile = new yazl.ZipFile()
@@ -104,6 +109,9 @@ export const packLambda = async ({
 			JSON.stringify({
 				type: 'module',
 				imports: importsSubpathPatterns,
+				dependencies: Object.fromEntries(
+					packages.values().map((pkg) => [pkg, '*']),
+				),
 			}),
 			'utf-8',
 		),

@@ -7,6 +7,21 @@ import { findDependencies } from './findDependencies.js'
 const __dirname = new URL('.', import.meta.url).pathname
 
 void describe('findDependencies()', () => {
+	void it('should return a list of external dependencies', () => {
+		const { packages } = findDependencies({
+			sourceFilePath: path.join(__dirname, '..', 'cdk', 'lambda.ts'),
+		})
+		assert.equal(
+			packages.has('aws-lambda'),
+			true,
+			"Should include the 'aws-lambda' package",
+		)
+		assert.equal(
+			packages.has('id128'),
+			true,
+			"Should include the 'id128' package",
+		)
+	})
 	void it('should honor tsconfig.json paths', () => {
 		const { dependencies } = findDependencies({
 			sourceFilePath: path.join(
