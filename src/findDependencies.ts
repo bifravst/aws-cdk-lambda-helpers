@@ -37,7 +37,11 @@ export const findDependencies = (args: {
 	const packages = args.packages ?? new Set<string>()
 	let importsSubpathPatterns = args.importsSubpathPatterns ?? {}
 	if (visited.includes(sourceFilePath))
-		return { dependencies, importsSubpathPatterns, packages }
+		return {
+			dependencies,
+			importsSubpathPatterns,
+			packages,
+		}
 	const tsConfigFilePath = args.tsConfigFilePath
 	const tsConfig =
 		tsConfigFilePath !== undefined
@@ -94,7 +98,27 @@ export const findDependencies = (args: {
 		})
 	}
 
-	return { dependencies, importsSubpathPatterns, packages }
+	return {
+		dependencies,
+		importsSubpathPatterns,
+		packages: new Set(
+			[
+				...packages.difference(
+					new Set([
+						'aws-lambda', // Ignore type-only package
+					]),
+				),
+			]
+				.filter((p) => !p.startsWith('node:'))
+				.map((d) => {
+					if (d.startsWith('@')) {
+						const [org, packageName] = d.split('/')
+						return `${org}/${packageName}`
+					}
+					return d.split('/')[0] as string
+				}),
+		),
+	}
 }
 
 const resolve = ({

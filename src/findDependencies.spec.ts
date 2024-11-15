@@ -12,16 +12,27 @@ void describe('findDependencies()', () => {
 			sourceFilePath: path.join(__dirname, '..', 'cdk', 'lambda.ts'),
 		})
 		assert.equal(
-			packages.has('aws-lambda'),
-			true,
-			"Should include the 'aws-lambda' package",
-		)
-		assert.equal(
 			packages.has('id128'),
 			true,
 			"Should include the 'id128' package",
 		)
+		assert.equal(
+			packages.has('aws-lambda'),
+			false,
+			"Should not include the type-only 'aws-lambda' package",
+		)
+		assert.equal(
+			packages.has('node:crypto'),
+			false,
+			'Should not include built-in node dependencies',
+		)
+		assert.equal(
+			packages.has('fp-ts'),
+			true,
+			'Should include the top-level package only',
+		)
 	})
+
 	void it('should honor tsconfig.json paths', () => {
 		const { dependencies } = findDependencies({
 			sourceFilePath: path.join(
