@@ -44,7 +44,7 @@ export class PackedLambdaFn extends Construct {
 
 		this.fn = new Lambda.Function(this, 'fn', {
 			architecture: Lambda.Architecture.ARM_64,
-			runtime: props.runtime ?? Lambda.Runtime.NODEJS_20_X,
+			runtime: props.runtime ?? Lambda.Runtime.NODEJS_22_X,
 			timeout: Duration.seconds(5),
 			memorySize: 1792,
 			environment: {
