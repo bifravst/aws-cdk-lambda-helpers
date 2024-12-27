@@ -1,7 +1,7 @@
 import { fromEnv } from '@bifravst/from-env'
-import { TestApp } from './TestApp.js'
-import { pack as packBaseLayer } from './baseLayer.js'
-import { packTestLambdas } from './packTestLambdas.js'
+import { TestApp } from './TestApp.ts'
+import { pack as packBaseLayer } from './baseLayer.ts'
+import { packTestLambdas } from './packTestLambdas.ts'
 const { stackName } = fromEnv({
 	stackName: 'STACK_NAME',
 })(process.env)

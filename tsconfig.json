@@ -17,6 +17,7 @@
     "noEmit": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": {
       "#lib": ["src/test-data/resolve-paths/foo/index.ts"],

@@ -1,5 +1,5 @@
 import pJson from '../package.json' assert { type: 'json' }
-import { packLayer, type PackedLayer } from '../src/layer.js'
+import { packLayer, type PackedLayer } from '../src/layer.ts'
 
 const dependencies: Array<
 	keyof (typeof pJson)['devDependencies'] | keyof (typeof pJson)['dependencies']

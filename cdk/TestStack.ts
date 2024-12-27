@@ -1,9 +1,9 @@
 import type { App } from 'aws-cdk-lib'
 import { CfnOutput, Duration, aws_lambda as Lambda, Stack } from 'aws-cdk-lib'
-import { LambdaSource } from '../src/cdk.js'
-import type { PackedLayer } from '../src/layer.js'
-import { PackedLambdaFn } from '../src/PackedLambdaFn.js'
-import type { TestLambdas } from './packTestLambdas.js'
+import { LambdaSource } from '../src/cdk.ts'
+import type { PackedLayer } from '../src/layer.ts'
+import { PackedLambdaFn } from '../src/PackedLambdaFn.ts'
+import type { TestLambdas } from './packTestLambdas.ts'
 
 export class TestStack extends Stack {
 	public constructor(

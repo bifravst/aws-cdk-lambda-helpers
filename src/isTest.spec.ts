@@ -1,7 +1,7 @@
 import type { Construct } from 'constructs'
 import assert from 'node:assert'
 import { describe, it, mock } from 'node:test'
-import { isTest } from './isTest.js'
+import { isTest } from './isTest.ts'
 
 void describe('isTest()', () => {
 	void it('should return true if the construct is a test', () => {

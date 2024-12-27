@@ -142,14 +142,10 @@ const resolve = ({
 } => {
 	if (moduleSpecifier.startsWith('.'))
 		return {
-			resolvedPath: path
-				.resolve(path.parse(sourceFilePath).dir, moduleSpecifier)
-				// In ECMA Script modules, all imports from local files must have an extension.
-				// See https://nodejs.org/api/esm.html#mandatory-file-extensions
-				// So we need to replace the `.js` in the import specification to find the TypeScript source for the file.
-				// Example: import { Network, notifyClients } from './notifyClients.js'
-				// The source file for that is actually in './notifyClients.ts'
-				.replace(/\.js$/, '.ts'),
+			resolvedPath: path.resolve(
+				path.parse(sourceFilePath).dir,
+				moduleSpecifier,
+			),
 		}
 	if (
 		tsConfigFilePath !== undefined &&
@@ -168,7 +164,7 @@ const resolve = ({
 				importsSubpathPatterns[key] = [
 					tsConfig.compilerOptions.baseUrl,
 					path.sep,
-					resolvedPath.replace(/\.ts$/, '.js'),
+					resolvedPath,
 				].join('')
 				return {
 					resolvedPath: fullResolvedPath,
@@ -179,20 +175,18 @@ const resolve = ({
 			const rx = new RegExp(`^${key.replace('*', '(?<wildcard>.*)')}`)
 			const maybeMatch = rx.exec(moduleSpecifier)
 			if (maybeMatch?.groups?.wildcard === undefined) continue
+
 			importsSubpathPatterns[key] = [
 				tsConfig.compilerOptions.baseUrl,
 				path.sep,
-				resolvedPath.replace(/\.ts$/, '.js'),
+				resolvedPath,
 			].join('')
 			return {
-				resolvedPath: path
-					.resolve(
-						path.parse(tsConfigFilePath).dir,
-						tsConfig.compilerOptions.baseUrl,
-						resolvedPath.replace('*', maybeMatch.groups.wildcard),
-					)
-					// Same as above, replace `.js` with `.ts`
-					.replace(/\.js$/, '.ts'),
+				resolvedPath: path.resolve(
+					path.parse(tsConfigFilePath).dir,
+					tsConfig.compilerOptions.baseUrl,
+					resolvedPath.replace('*', maybeMatch.groups.wildcard),
+				),
 			}
 		}
 	}

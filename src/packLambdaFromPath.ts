@@ -1,6 +1,6 @@
 import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
-import { packLambda, type PackedLambda } from './packLambda.js'
+import { packLambda, type PackedLambda } from './packLambda.ts'
 
 export const packLambdaFromPath = async ({
 	id,

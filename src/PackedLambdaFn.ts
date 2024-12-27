@@ -6,9 +6,9 @@ import {
 	type aws_logs as Logs,
 } from 'aws-cdk-lib'
 import { Construct } from 'constructs'
-import { LambdaLogGroup } from './LambdaLogGroup.js'
-import { LambdaSource } from './LambdaSource.js'
-import type { PackedLambda } from './packLambda.js'
+import { LambdaLogGroup } from './LambdaLogGroup.ts'
+import { LambdaSource } from './LambdaSource.ts'
+import type { PackedLambda } from './packLambda.ts'
 
 /**
  * Creates a Lambda function with useful defaults:
