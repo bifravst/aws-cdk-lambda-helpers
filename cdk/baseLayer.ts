@@ -1,4 +1,4 @@
-import pJson from '../package.json' assert { type: 'json' }
+import pJson from '../package.json' with { type: 'json' }
 import { packLayer, type PackedLayer } from '../src/layer.ts'
 
 const dependencies: Array<
