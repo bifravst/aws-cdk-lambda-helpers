@@ -4,9 +4,10 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parse } from 'path'
 import yazl from 'yazl'
-import { checkSumOfFiles } from './checksumOfFiles.js'
-import { commonParent } from './commonParent.js'
-import { findDependencies } from './findDependencies.js'
+import { checkSumOfFiles } from './checksumOfFiles.ts'
+import { commonParent } from './commonParent.ts'
+import { updateImports } from './convert-imports.ts'
+import { findDependencies } from './findDependencies.ts'
 
 export type PackedLambda = {
 	id: string
@@ -63,6 +64,8 @@ export const packLambda = async ({
 	})
 	const lambdaFiles = [sourceFilePath, ...deps]
 
+	console.log(deps)
+
 	const zipfile = new yazl.ZipFile()
 
 	const stripCommon = removeCommonAncestor(commonParent(lambdaFiles))
@@ -87,7 +90,7 @@ export const packLambda = async ({
 
 	// Compile files
 	for (const file of lambdaFiles) {
-		const compiled = (
+		let compiled = (
 			await swc.transformFile(file, {
 				jsc: {
 					target: 'es2022',
@@ -95,6 +98,8 @@ export const packLambda = async ({
 			})
 		).code
 		debug?.(`compiled`, compiled)
+		compiled = updateImports(compiled)
+		debug?.(`converted imports`, compiled)
 		const jsFileName = stripCommon(file)
 		zipfile.addBuffer(Buffer.from(compiled, 'utf-8'), jsFileName)
 		progress?.(`added`, jsFileName)

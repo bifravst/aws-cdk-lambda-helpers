@@ -1,2 +1,2 @@
-export * from './packLambda.js'
-export * from './packLambdaFromPath.js'
+export * from './packLambda.ts'
+export * from './packLambdaFromPath.ts'

@@ -3,7 +3,7 @@ import { stackOutput } from '@bifravst/cloudformation-helpers'
 import { fromEnv } from '@bifravst/from-env'
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import type { StackOutputs } from './cdk/TestStack.js'
+import type { StackOutputs } from './cdk/TestStack.ts'
 
 void describe('end-to-end tests', () => {
 	void it('should return an ULID', async () => {

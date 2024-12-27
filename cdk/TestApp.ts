@@ -1,5 +1,5 @@
 import { App } from 'aws-cdk-lib'
-import { TestStack } from './TestStack.js'
+import { TestStack } from './TestStack.ts'
 
 export class TestApp extends App {
 	public constructor(

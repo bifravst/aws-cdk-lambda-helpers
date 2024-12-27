@@ -1,5 +1,5 @@
 import { foo } from '#lib'
-import { foo2 } from '#lib/2.js'
+import { foo2 } from '#lib/2.ts'
 import type { APIGatewayProxyResultV2 } from 'aws-lambda'
 
 export const handler = async (): Promise<APIGatewayProxyResultV2> => ({

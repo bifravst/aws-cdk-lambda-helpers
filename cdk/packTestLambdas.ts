@@ -1,6 +1,6 @@
 import path from 'node:path'
-import type { PackedLambda } from '../src/packLambda.js'
-import { packLambdaFromPath } from '../src/packLambdaFromPath.js'
+import type { PackedLambda } from '../src/packLambda.ts'
+import { packLambdaFromPath } from '../src/packLambdaFromPath.ts'
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
