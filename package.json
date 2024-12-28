@@ -33,7 +33,7 @@
     "test": "node --experimental-strip-types --no-warnings --test ./src/*.spec.ts",
     "test:e2e": "node --experimental-strip-types --test e2e.spec.ts",
     "prepare": "husky",
-    "prepublishOnly": "node --experimental-strip-types npm-compile.ts"
+    "prepublishOnly": "node --experimental-strip-types npm-compile.ts && npx tsc -P tsconfig.npm.json --outDir ./dist/src"
   },
   "repository": {
     "type": "git",

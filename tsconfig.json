@@ -1,28 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "noEmit": true,
-    "verbatimModuleSyntax": true,
-    "skipLibCheck": true,
-    "allowImportingTsExtensions": true,
-    "baseUrl": ".",
-    "paths": {
-      "#lib": ["src/test-data/resolve-paths/foo/index.ts"],
-      "#lib/*": ["src/test-data/resolve-paths/foo/*"]
-    }
-  },
-  "exclude": ["src/test-data/**"]
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": { "noEmit": true }
 }
