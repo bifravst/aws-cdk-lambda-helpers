@@ -65,7 +65,7 @@ jobs:
           path: dist/
 
       - name: Run end-to-end tests
-        run: node --experimental-strip-types --test e2e.spec.ts
+        run: npm run test:e2e
 
       - run: npx cdk destroy -f
 

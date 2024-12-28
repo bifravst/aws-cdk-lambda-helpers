@@ -42,5 +42,18 @@ await describe('packLambda()', async () => {
 			getFileFromZip(zipFilePath, 'foo/2.js'),
 			'The ZIP file should contain the imported file',
 		)
+
+		const pJson = JSON.parse(await getFileFromZip(zipFilePath, 'package.json'))
+		assert.equal(
+			pJson.type,
+			'module',
+			'The package.json should contain "type": "module"',
+		)
+
+		assert.deepEqual(
+			pJson.imports,
+			{ '#foo': './foo/index.js', '#foo/*': './foo/*' },
+			'The package.json should contain the imports',
+		)
 	})
 })

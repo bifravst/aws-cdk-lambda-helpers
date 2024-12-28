@@ -31,6 +31,7 @@
   "type": "module",
   "scripts": {
     "test": "node --experimental-strip-types --no-warnings --test ./src/*.spec.ts",
+    "test:e2e": "node --experimental-strip-types --test e2e.spec.ts",
     "prepare": "husky",
     "prepublishOnly": "npx tsc --noEmit false --outDir ./dist -d"
   },

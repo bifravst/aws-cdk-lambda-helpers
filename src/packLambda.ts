@@ -64,8 +64,6 @@ export const packLambda = async ({
 	})
 	const lambdaFiles = [sourceFilePath, ...deps]
 
-	console.log(deps)
-
 	const zipfile = new yazl.ZipFile()
 
 	const stripCommon = removeCommonAncestor(commonParent(lambdaFiles))
@@ -114,15 +112,24 @@ export const packLambda = async ({
 	// Mark it as ES module
 	zipfile.addBuffer(
 		Buffer.from(
-			JSON.stringify({
-				type: 'module',
-				imports: importsSubpathPatterns,
-				dependencies: Object.fromEntries(
-					[...packages.values()]
-						.sort((a, b) => a.localeCompare(b))
-						.map((pkg) => [pkg, '*']),
-				),
-			}),
+			JSON.stringify(
+				{
+					type: 'module',
+					imports: Object.fromEntries(
+						Object.entries(importsSubpathPatterns).map(([k, v]) => [
+							k,
+							v.replace(/\.ts$/, '.js'),
+						]),
+					),
+					dependencies: Object.fromEntries(
+						[...packages.values()]
+							.sort((a, b) => a.localeCompare(b))
+							.map((pkg) => [pkg, '*']),
+					),
+				},
+				null,
+				2,
+			),
 			'utf-8',
 		),
 		'package.json',
