@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import path from 'node:path'
 import { describe, it } from 'node:test'
 import { URL } from 'node:url'
-import { findDependencies } from './findDependencies.js'
+import { findDependencies } from './findDependencies.ts'
 
 const __dirname = new URL('.', import.meta.url).pathname
 
@@ -93,7 +93,7 @@ void describe('findDependencies()', () => {
 		})
 
 		assert.deepEqual(importsSubpathPatterns, {
-			'#foo': './foo/index.js',
+			'#foo': './foo/index.ts',
 			'#foo/*': './foo/*',
 		})
 	})

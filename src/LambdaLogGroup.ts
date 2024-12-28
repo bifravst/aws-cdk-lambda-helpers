@@ -1,6 +1,6 @@
 import { aws_logs as Logs, Names, RemovalPolicy, Stack } from 'aws-cdk-lib'
 import { Construct } from 'constructs'
-import { isTest } from './isTest.js'
+import { isTest } from './isTest.ts'
 
 export class LambdaLogGroup extends Construct {
 	public readonly logGroup: Logs.LogGroup

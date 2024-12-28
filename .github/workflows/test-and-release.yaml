@@ -32,6 +32,9 @@ jobs:
       - name: Compile
         run: npx tsc
 
+      - name: Try to build
+        run: npm run prepublishOnly
+
       - name: Check source code with eslint
         run: npx eslint .
 
@@ -65,7 +68,7 @@ jobs:
           path: dist/
 
       - name: Run end-to-end tests
-        run: npx tsx --test e2e.spec.ts
+        run: npm run test:e2e
 
       - run: npx cdk destroy -f
 

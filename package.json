@@ -30,9 +30,10 @@
   },
   "type": "module",
   "scripts": {
-    "test": "tsx --no-warnings --test ./src/*.spec.ts",
+    "test": "node --experimental-strip-types --no-warnings --test ./src/*.spec.ts",
+    "test:e2e": "node --experimental-strip-types --test e2e.spec.ts",
     "prepare": "husky",
-    "prepublishOnly": "npx tsc --noEmit false --outDir ./dist -d"
+    "prepublishOnly": "node --experimental-strip-types npm-compile.ts"
   },
   "repository": {
     "type": "git",
@@ -58,15 +59,17 @@
     "@bifravst/from-env": "3.0.2",
     "@bifravst/prettier-config": "1.1.4",
     "@commitlint/config-conventional": "19.6.0",
+    "@swc/cli": "0.5.2",
     "@types/aws-lambda": "8.10.146",
     "@types/node": "22.10.2",
+    "@types/unzip-stream": "0.3.4",
     "@types/yazl": "2.4.5",
     "cdk": "2.173.4",
     "commitlint": "19.6.1",
     "husky": "9.1.7",
     "id128": "1.6.6",
     "lint-staged": "15.3.0",
-    "tsx": "4.19.2"
+    "unzip-stream": "0.3.4"
   },
   "lint-staged": {
     "*.ts": [
@@ -78,7 +81,7 @@
     ]
   },
   "engines": {
-    "node": ">=22",
+    "node": ">=22.7.0",
     "npm": ">=10"
   },
   "release": {

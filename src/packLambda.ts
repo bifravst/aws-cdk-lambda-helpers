@@ -4,9 +4,10 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parse } from 'path'
 import yazl from 'yazl'
-import { checkSumOfFiles } from './checksumOfFiles.js'
-import { commonParent } from './commonParent.js'
-import { findDependencies } from './findDependencies.js'
+import { checkSumOfFiles } from './checksumOfFiles.ts'
+import { commonParent } from './commonParent.ts'
+import { findDependencies } from './findDependencies.ts'
+import { updateImports } from './updateImports.ts'
 
 export type PackedLambda = {
 	id: string
@@ -87,7 +88,7 @@ export const packLambda = async ({
 
 	// Compile files
 	for (const file of lambdaFiles) {
-		const compiled = (
+		let compiled = (
 			await swc.transformFile(file, {
 				jsc: {
 					target: 'es2022',
@@ -95,6 +96,8 @@ export const packLambda = async ({
 			})
 		).code
 		debug?.(`compiled`, compiled)
+		compiled = updateImports(compiled)
+		debug?.(`converted imports`, compiled)
 		const jsFileName = stripCommon(file)
 		zipfile.addBuffer(Buffer.from(compiled, 'utf-8'), jsFileName)
 		progress?.(`added`, jsFileName)
@@ -109,15 +112,24 @@ export const packLambda = async ({
 	// Mark it as ES module
 	zipfile.addBuffer(
 		Buffer.from(
-			JSON.stringify({
-				type: 'module',
-				imports: importsSubpathPatterns,
-				dependencies: Object.fromEntries(
-					[...packages.values()]
-						.sort((a, b) => a.localeCompare(b))
-						.map((pkg) => [pkg, '*']),
-				),
-			}),
+			JSON.stringify(
+				{
+					type: 'module',
+					imports: Object.fromEntries(
+						Object.entries(importsSubpathPatterns).map(([k, v]) => [
+							k,
+							v.replace(/\.ts$/, '.js'),
+						]),
+					),
+					dependencies: Object.fromEntries(
+						[...packages.values()]
+							.sort((a, b) => a.localeCompare(b))
+							.map((pkg) => [pkg, '*']),
+					),
+				},
+				null,
+				2,
+			),
 			'utf-8',
 		),
 		'package.json',

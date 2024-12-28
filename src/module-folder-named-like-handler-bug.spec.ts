@@ -4,7 +4,7 @@ import os from 'node:os'
 import path, { dirname } from 'node:path'
 import { describe, it } from 'node:test'
 import { fileURLToPath } from 'node:url'
-import { ImportFromFolderNameError, packLambda } from './packLambda.js'
+import { ImportFromFolderNameError, packLambda } from './packLambda.ts'
 
 const tmpDir = os.tmpdir()
 

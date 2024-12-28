@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "imports": {
+    "#foo": "./foo/index.ts",
+    "#foo/*": "./foo/*"
+  }
+}

@@ -5,7 +5,7 @@ import { glob } from 'glob'
 import { fileURLToPath } from 'node:url'
 import path from 'path'
 import { ZipFile } from 'yazl'
-import { checkSumOfFiles, checkSumOfStrings } from './checksumOfFiles.js'
+import { checkSumOfFiles, checkSumOfStrings } from './checksumOfFiles.ts'
 
 export type PackedLayer = { layerZipFilePath: string; hash: string }
 
