@@ -6,8 +6,8 @@ import { parse } from 'path'
 import yazl from 'yazl'
 import { checkSumOfFiles } from './checksumOfFiles.ts'
 import { commonParent } from './commonParent.ts'
-import { updateImports } from './convert-imports.ts'
 import { findDependencies } from './findDependencies.ts'
+import { updateImports } from './updateImports.ts'
 
 export type PackedLambda = {
 	id: string
