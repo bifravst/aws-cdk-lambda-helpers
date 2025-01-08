@@ -64,7 +64,7 @@
     "@types/node": "22.10.5",
     "@types/unzip-stream": "0.3.4",
     "@types/yazl": "2.4.5",
-    "cdk": "2.174.0",
+    "cdk": "2.174.1",
     "commitlint": "19.6.1",
     "husky": "9.1.7",
     "id128": "1.6.6",
@@ -120,7 +120,7 @@
   },
   "peerDependencies": {
     "@bifravst/aws-ssm-settings-helpers": "^1.2.86",
-    "aws-cdk-lib": "^2.174.0",
+    "aws-cdk-lib": "^2.174.1",
     "constructs": "^10.4.2"
   }
 }
