@@ -61,7 +61,7 @@
     "@commitlint/config-conventional": "19.7.1",
     "@swc/cli": "0.6.0",
     "@types/aws-lambda": "8.10.147",
-    "@types/node": "22.13.1",
+    "@types/node": "22.13.2",
     "@types/unzip-stream": "0.3.4",
     "@types/yazl": "2.4.6",
     "cdk": "2.178.2",
