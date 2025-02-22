@@ -57,7 +57,7 @@
     "@bifravst/cloudformation-helpers": "9.1.1",
     "@bifravst/eslint-config-typescript": "6.1.20",
     "@bifravst/from-env": "3.0.2",
-    "@bifravst/prettier-config": "1.1.6",
+    "@bifravst/prettier-config": "1.1.7",
     "@commitlint/config-conventional": "19.7.1",
     "@swc/cli": "0.6.0",
     "@types/aws-lambda": "8.10.147",
