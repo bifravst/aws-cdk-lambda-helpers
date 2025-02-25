@@ -64,7 +64,7 @@
     "@types/node": "22.13.5",
     "@types/unzip-stream": "0.3.4",
     "@types/yazl": "2.4.6",
-    "cdk": "2.1000.2",
+    "cdk": "2.1000.3",
     "commitlint": "19.7.1",
     "husky": "9.1.7",
     "id128": "1.6.6",
