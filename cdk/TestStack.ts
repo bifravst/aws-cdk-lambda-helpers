@@ -41,7 +41,7 @@ export class TestStack extends Stack {
 		})
 
 		new CfnOutput(this, 'lambdaURL', {
-			exportName: `${this.stackName}:lambdaURL`,
+			exportName: `${Stack.of(this).stackName}:lambdaURL`,
 			description: 'API endpoint',
 			value: url.url,
 		})
@@ -62,7 +62,7 @@ export class TestStack extends Stack {
 		})
 
 		new CfnOutput(this, 'lambdaAliasImportsURL', {
-			exportName: `${this.stackName}:lambdaAliasImportsURL`,
+			exportName: `${Stack.of(this).stackName}:lambdaAliasImportsURL`,
 			description: 'API endpoint for the lambda using alias imports',
 			value: urlAliasImports.url,
 		})
