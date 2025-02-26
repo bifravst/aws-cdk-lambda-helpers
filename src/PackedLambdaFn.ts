@@ -37,13 +37,13 @@ export class PackedLambdaFn extends Construct {
 	) {
 		super(parent, id)
 
-		const { environment, initialPolicy, ...rest } = props
+		const { environment, initialPolicy, architecture, ...rest } = props
 
 		this.logGroup =
 			props.logGroup ?? new LambdaLogGroup(this, 'fnLogs').logGroup
 
 		this.fn = new Lambda.Function(this, 'fn', {
-			architecture: Lambda.Architecture.ARM_64,
+			architecture: architecture ?? Lambda.Architecture.ARM_64,
 			runtime: props.runtime ?? Lambda.Runtime.NODEJS_22_X,
 			timeout: Duration.seconds(5),
 			memorySize: 1792,
