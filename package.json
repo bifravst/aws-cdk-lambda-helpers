@@ -112,7 +112,7 @@
   ],
   "prettier": "@bifravst/prettier-config",
   "dependencies": {
-    "@swc/core": "1.11.5",
+    "@swc/core": "1.11.6",
     "fp-ts": "2.16.9",
     "glob": "11.0.1",
     "typescript": "5.8.2",
