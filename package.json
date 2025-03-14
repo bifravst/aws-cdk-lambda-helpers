@@ -120,7 +120,7 @@
   },
   "peerDependencies": {
     "@bifravst/aws-ssm-settings-helpers": "^1.2.115",
-    "aws-cdk-lib": "^2.184.0",
+    "aws-cdk-lib": "^2.184.1",
     "constructs": "^10.4.2"
   }
 }
