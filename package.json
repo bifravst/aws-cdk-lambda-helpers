@@ -68,7 +68,7 @@
     "commitlint": "19.8.0",
     "husky": "9.1.7",
     "id128": "1.6.6",
-    "lint-staged": "15.5.0",
+    "lint-staged": "15.5.1",
     "unzip-stream": "0.3.4"
   },
   "lint-staged": {
