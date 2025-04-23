@@ -114,7 +114,7 @@
   "dependencies": {
     "@swc/core": "1.11.22",
     "fp-ts": "2.16.10",
-    "glob": "11.0.1",
+    "glob": "11.0.2",
     "typescript": "5.8.3",
     "yazl": "3.3.1"
   },
