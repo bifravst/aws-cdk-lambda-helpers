@@ -80,7 +80,7 @@ const updateLambda =
 			},
 		)
 
-		debug?.(`[${packed.id}]`, `updating VERSION to ${packed.hash} ...`)
+		debug?.(`[${packed.id}]`, `updating config to trigger reload ...`)
 
 		await Promise.all([
 			await lambda.send(
@@ -89,7 +89,7 @@ const updateLambda =
 					Environment: {
 						Variables: {
 							...info.Configuration?.Environment?.Variables,
-							VERSION: packed.hash,
+							PACKED_LAMBDA_HASH: packed.hash,
 						},
 					},
 				}),
