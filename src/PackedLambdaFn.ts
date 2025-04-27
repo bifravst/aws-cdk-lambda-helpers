@@ -3,6 +3,7 @@ import {
 	Duration,
 	aws_lambda as Lambda,
 	Stack,
+	Tags,
 	type aws_logs as Logs,
 } from 'aws-cdk-lib'
 import { Construct } from 'constructs'
@@ -65,7 +66,7 @@ export class PackedLambdaFn extends Construct {
 			handler: source.handler,
 			code: new LambdaSource(this, source).code,
 		})
-		this.fn.node.addMetadata('packedLambda:id', source.id)
-		this.fn.node.addMetadata('packedLambda:hash', source.hash)
+		Tags.of(this.fn).add('packedLambda:id', source.id)
+		Tags.of(this.fn).add('packedLambda:hash', source.hash)
 	}
 }
