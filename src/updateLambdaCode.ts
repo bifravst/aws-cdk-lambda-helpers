@@ -88,6 +88,7 @@ const updateLambda =
 					FunctionName: lambdaResource.PhysicalResourceId,
 					Environment: {
 						Variables: {
+							...info.Configuration?.Environment?.Variables,
 							VERSION: packed.hash,
 						},
 					},
