@@ -32,6 +32,7 @@
   "scripts": {
     "test": "node --experimental-strip-types --no-warnings --test ./src/*.spec.ts",
     "test:e2e": "node --experimental-strip-types --test e2e.spec.ts",
+    "test:e2e:updated": "node --experimental-strip-types --test e2e-updated.spec.ts",
     "prepare": "husky",
     "prepublishOnly": "node --experimental-strip-types npm-compile.ts && npx tsc -P tsconfig.npm.json --outDir ./dist/src"
   },
