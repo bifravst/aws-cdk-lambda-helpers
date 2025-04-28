@@ -6,7 +6,7 @@ import { describe, it } from 'node:test'
 import type { StackOutputs } from './cdk/TestStack.ts'
 
 void describe('end-to-end tests', () => {
-	void it('should return an ULID', async () => {
+	void it('should return the string "UPDATED"', async () => {
 		const { stackName } = fromEnv({
 			stackName: 'STACK_NAME',
 		})(process.env)
