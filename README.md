@@ -17,6 +17,14 @@ Helper functions which simplify working with TypeScript lambdas for AWS CDK.
 
 See [the end-to-end test stack](./cdk/e2e.ts).
 
+## `updateLambdaCode()` helper
+
+[`updateLambdaCode()`](./src/updateLambdaCode.ts) is a helper that will update
+the function code of a lambda directly without a CloudFormation deployment,
+which is many times faster. This is useful during development.
+
+See [this example](./cdk/update-lambdas.ts) on how to use it.
+
 ## Example migrations to `@bifravst/aws-cdk-lambda-helpers`
 
 - [world.thingy.rocks backend](https://github.com/NordicPlayground/thingy-rocks-cloud-aws-js/commit/3ca6e267917db4d8cb09ca63ed54384c0e23f163)

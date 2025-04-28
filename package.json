@@ -32,6 +32,7 @@
   "scripts": {
     "test": "node --experimental-strip-types --no-warnings --test ./src/*.spec.ts",
     "test:e2e": "node --experimental-strip-types --test e2e.spec.ts",
+    "test:e2e:updated": "node --experimental-strip-types --test e2e-updated.spec.ts",
     "prepare": "husky",
     "prepublishOnly": "node --experimental-strip-types npm-compile.ts && npx tsc -P tsconfig.npm.json --outDir ./dist/src"
   },
@@ -115,10 +116,12 @@
     "@swc/core": "1.11.22",
     "fp-ts": "2.16.10",
     "glob": "11.0.2",
+    "p-retry": "6.2.1",
     "typescript": "5.8.3",
     "yazl": "3.3.1"
   },
   "peerDependencies": {
+    "@aws-sdk/client-lambda": "^3.797.0",
     "@bifravst/aws-ssm-settings-helpers": "^1.2.134",
     "aws-cdk-lib": "^2.192.0",
     "constructs": "^10.4.2"

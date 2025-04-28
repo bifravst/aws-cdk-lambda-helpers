@@ -70,6 +70,14 @@ jobs:
       - name: Run end-to-end tests
         run: npm run test:e2e
 
+      - name: Update lambdas using the updateLambdaCode() helper
+        run: |
+          cp ./cdk/lambda-updated.ts ./cdk/lambda.ts
+          node --no-warnings --experimental-transform-types ./cdk/update-lambdas.ts
+
+      - name: Run end-to-end tests for the updated lambda
+        run: npm run test:e2e:updated
+
       - run: npx cdk destroy -f
 
       - name: Semantic release
