@@ -11,17 +11,22 @@ const { stackName } = fromEnv({
 
 const cf = new CloudFormationClient()
 const lambda = new LambdaClient()
+
+// Instantiate the command
 const update = updateLambdaCode({ cf, lambda })
 
+// Pack the lambdas
 const start = new Date()
 const packs = await packTestLambdas()
 console.debug('Packed lambdas in', new Date().getTime() - start.getTime(), 'ms')
+
+// Pass stack and the lambdas to be updated
 await update(stackName, packs, (arg, ...args) =>
 	console.debug(chalk.blue(`[${stackName}]`), chalk.green(arg), ...args),
 )
+console.debug('Done')
 console.debug(
 	'Updated lambdas in',
 	new Date().getTime() - start.getTime(),
 	'ms',
 )
-console.debug('Done')
