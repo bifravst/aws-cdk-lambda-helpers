@@ -1,11 +1,11 @@
 import {
-	type CloudFormationClient,
+	CloudFormationClient,
 	paginateListStackResources,
 	type StackResourceSummary,
 } from '@aws-sdk/client-cloudformation'
 import {
 	GetFunctionCommand,
-	type LambdaClient,
+	LambdaClient,
 	LastUpdateStatus,
 	TagResourceCommand,
 	UpdateFunctionCodeCommand,
@@ -105,9 +105,13 @@ const updateLambda =
 		])
 	}
 
-export const updateLambdaCode =
-	({ cf, lambda }: { cf: CloudFormationClient; lambda: LambdaClient }) =>
-	async (
+export const updateLambdaCode = (deps?: {
+	cf: CloudFormationClient
+	lambda: LambdaClient
+}) => {
+	const lambda = deps?.lambda ?? new LambdaClient({})
+	const cf = deps?.cf ?? new CloudFormationClient({})
+	return async (
 		stackName: string,
 		packedLambdas: Record<string, PackedLambda>,
 		debug?: (...args: Array<any>) => void,
@@ -136,3 +140,4 @@ export const updateLambdaCode =
 
 		await Promise.all(p)
 	}
+}
