@@ -1,32 +1,18 @@
-import {
-	AssetHashType,
-	aws_lambda as Lambda,
-	aws_s3 as S3,
-	aws_s3_assets as S3Assets,
-} from 'aws-cdk-lib'
+import { AssetHashType, aws_lambda as Lambda } from 'aws-cdk-lib'
 import { Construct } from 'constructs'
 import type { PackedLambda } from './packLambda.ts'
 
 export class LambdaSource extends Construct {
-	public readonly code: Lambda.S3Code
+	public readonly code: Lambda.AssetCode
 	constructor(
 		parent: Construct,
 		packedLambda: Pick<PackedLambda, 'zipFilePath' | 'id' | 'hash'>,
 	) {
 		super(parent, `${packedLambda.id}Source`)
 
-		const asset = new S3Assets.Asset(this, 'asset', {
-			path: packedLambda.zipFilePath,
+		this.code = Lambda.Code.fromAsset(packedLambda.zipFilePath, {
 			assetHash: packedLambda.hash,
 			assetHashType: AssetHashType.CUSTOM,
 		})
-
-		const sourceCodeBucket = S3.Bucket.fromBucketName(
-			this,
-			'bucket',
-			asset.s3BucketName,
-		)
-
-		this.code = Lambda.Code.fromBucket(sourceCodeBucket, asset.s3ObjectKey)
 	}
 }
