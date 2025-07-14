@@ -21,9 +21,11 @@ const updateLambda =
 		lambda,
 		packs,
 		debug,
+		forceUpdate,
 	}: {
 		lambda: LambdaClient
 		packs: Record<string, PackedLambda>
+		forceUpdate?: true
 		debug?: typeof console.debug
 	}) =>
 	async (lambdaResource: StackResourceSummary) => {
@@ -40,10 +42,14 @@ const updateLambda =
 			return
 		}
 		debug?.(`[${packed.id}]`, 'found pack')
-		if (packed.hash === info.Tags?.['packedLambda:hash']) {
-			debug?.(`[${packed.id}]`, 'No update needed')
-			return
+
+		if ((forceUpdate ?? false) === false) {
+			if (packed.hash === info.Tags?.['packedLambda:hash']) {
+				debug?.(`[${packed.id}]`, 'No update needed')
+				return
+			}
 		}
+
 		if (packed.hash !== info.Tags?.['packedLambda:hash']) {
 			debug?.(`[${packed.id}]`, 'Updating lambda')
 		}
