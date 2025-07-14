@@ -1,5 +1,6 @@
 import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
+import { checkSumOfStrings } from './checksumOfFiles.ts'
 import { packLambda, type PackedLambda } from './packLambda.ts'
 
 export const packLambdaFromPath = async ({
@@ -52,6 +53,6 @@ export const packLambdaFromPath = async ({
 		id,
 		zipFilePath: zipFile,
 		handler: handler.replace('.js', `.${handlerFunction}`),
-		hash,
+		hash: checkSumOfStrings([id, hash]),
 	}
 }
