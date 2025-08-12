@@ -121,7 +121,7 @@
     "yazl": "3.3.1"
   },
   "peerDependencies": {
-    "@aws-sdk/client-lambda": "^3.864.0",
+    "@aws-sdk/client-lambda": "^3.865.0",
     "@bifravst/aws-ssm-settings-helpers": "^1.2.187",
     "aws-cdk-lib": "^2.210.0",
     "constructs": "^10.4.2"
