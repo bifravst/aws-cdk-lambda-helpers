@@ -37,6 +37,7 @@ export const packLayer = async ({
 	const base = baseDir ?? process.cwd()
 	const dist = distDir ?? path.join(base, 'dist', 'layers')
 	const packageJsonFile = path.join(base, 'package.json')
+	const npmrcFile = path.join(base, '.npmrc')
 	const packageLockJsonFile = path.join(base, 'package-lock.json')
 	const { dependencies: deps, devDependencies: devDeps } = JSON.parse(
 		await readFile(packageJsonFile, 'utf-8'),
@@ -83,6 +84,16 @@ export const packLayer = async ({
 	)
 	checkSumFiles.push(packageJSON)
 
+	let hasNpmRcFile = true
+	try {
+		// .npmrc may not exist
+		await stat(npmrcFile)
+		await copyFile(npmrcFile, path.join(nodejsDir, '.npmrc'))
+		checkSumFiles.push(npmrcFile)
+	} catch {
+		hasNpmRcFile = false
+	}
+
 	let hasLockFile = true
 	try {
 		// package-lock.json may not exist
@@ -128,6 +139,9 @@ export const packLayer = async ({
 	filesToAdd.forEach((f) => {
 		zipfile.addFile(path.join(layerDir, f), f)
 	})
+	if (hasNpmRcFile) {
+		zipfile.addFile(path.join(nodejsDir, '.npmrc'), 'nodejs/.npmrc')
+	}
 
 	const zipFileName = await new Promise<string>((resolve) => {
 		const zipFileName = path.join(dist, `${id}.zip`)

@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@nrfcloud/wait-for-it": "npm:@jsr/nrfcloud__wait-for-it@1.0.7"
+  }
+}
