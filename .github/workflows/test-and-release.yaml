@@ -45,7 +45,7 @@ jobs:
         run: npm test
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           # The role is set up via https://github.com/bifravst/ci
           # secrets.AWS_ACCOUNT_ID_CI is an organization secret
