@@ -122,7 +122,7 @@
   },
   "peerDependencies": {
     "@aws-sdk/client-lambda": "^3.882.0",
-    "@bifravst/aws-ssm-settings-helpers": "^1.2.195",
+    "@bifravst/aws-ssm-settings-helpers": "^1.2.196",
     "aws-cdk-lib": "^2.214.0",
     "constructs": "^10.4.2"
   }
