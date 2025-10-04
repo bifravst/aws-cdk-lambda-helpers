@@ -117,7 +117,7 @@
     "fp-ts": "2.16.11",
     "glob": "11.0.3",
     "p-retry": "7.0.0",
-    "typescript": "5.9.2",
+    "typescript": "5.9.3",
     "yazl": "3.3.1"
   },
   "peerDependencies": {
