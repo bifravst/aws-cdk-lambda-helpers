@@ -3,15 +3,15 @@
  */
 
 import swc from '@swc/core'
-import { glob } from 'glob'
 import { mkdirSync, writeFileSync } from 'node:fs'
+import { glob } from 'node:fs/promises'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { updateImports } from './src/updateImports.ts'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-for (const file of glob.sync('src/**/*.ts')) {
+for await (const file of glob('src/**/*.ts')) {
 	let compiled = (
 		await swc.transformFile(file, {
 			jsc: {

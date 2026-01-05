@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
 import { createWriteStream } from 'fs'
 import { copyFile, mkdir, readFile, rm, stat, writeFile } from 'fs/promises'
-import { glob } from 'glob'
+import { glob } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'path'
 import { ZipFile } from 'yazl'
@@ -131,14 +131,13 @@ export const packLayer = async ({
 		})
 	})
 
-	const filesToAdd = await glob(`**`, {
-		cwd: layerDir,
-		nodir: true,
-	})
 	const zipfile = new ZipFile()
-	filesToAdd.forEach((f) => {
+	for await (const f of glob(`**`, { cwd: layerDir })) {
+		if ((await stat(path.join(layerDir, f))).isDirectory()) {
+			continue
+		}
 		zipfile.addFile(path.join(layerDir, f), f)
-	})
+	}
 	if (hasNpmRcFile) {
 		zipfile.addFile(path.join(nodejsDir, '.npmrc'), 'nodejs/.npmrc')
 	}
