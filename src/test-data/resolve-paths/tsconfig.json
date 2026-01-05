@@ -2,10 +2,9 @@
   "compilerOptions": {
     "noEmit": true,
     "allowImportingTsExtensions": true,
-    "baseUrl": ".",
     "paths": {
-      "#foo": ["foo/index.ts"],
-      "#foo/*": ["foo/*"]
+      "#foo": ["./foo/index.ts"],
+      "#foo/*": ["./foo/*"]
     }
   }
 }

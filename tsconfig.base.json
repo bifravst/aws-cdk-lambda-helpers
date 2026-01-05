@@ -17,11 +17,10 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
-    "baseUrl": ".",
     "paths": {
-      "#lib": ["src/test-data/resolve-paths/foo/index.ts"],
-      "#lib/*": ["src/test-data/resolve-paths/foo/*"]
+      "#lib": ["./src/test-data/resolve-paths/foo/index.ts"],
+      "#lib/*": ["./src/test-data/resolve-paths/foo/*"]
     }
   },
-  "exclude": ["src/test-data/**"]
+  "exclude": ["./src/test-data/**"]
 }

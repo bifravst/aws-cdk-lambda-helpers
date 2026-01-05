@@ -4,7 +4,6 @@ import ts, { type ImportDeclaration, type StringLiteral } from 'typescript'
 
 type TSConfigWithPaths = {
 	compilerOptions?: {
-		baseUrl: string
 		paths: Record<string, Array<string>>
 	}
 }
@@ -158,14 +157,9 @@ const resolve = ({
 			if (moduleSpecifier === key) {
 				const fullResolvedPath = path.join(
 					path.parse(tsConfigFilePath).dir,
-					tsConfig.compilerOptions.baseUrl,
 					resolvedPath,
 				)
-				importsSubpathPatterns[key] = [
-					tsConfig.compilerOptions.baseUrl,
-					path.sep,
-					resolvedPath,
-				].join('')
+				importsSubpathPatterns[key] = resolvedPath
 				return {
 					resolvedPath: fullResolvedPath,
 				}
@@ -176,15 +170,10 @@ const resolve = ({
 			const maybeMatch = rx.exec(moduleSpecifier)
 			if (maybeMatch?.groups?.wildcard === undefined) continue
 
-			importsSubpathPatterns[key] = [
-				tsConfig.compilerOptions.baseUrl,
-				path.sep,
-				resolvedPath,
-			].join('')
+			importsSubpathPatterns[key] = resolvedPath
 			return {
 				resolvedPath: path.resolve(
 					path.parse(tsConfigFilePath).dir,
-					tsConfig.compilerOptions.baseUrl,
 					resolvedPath.replace('*', maybeMatch.groups.wildcard),
 				),
 			}
