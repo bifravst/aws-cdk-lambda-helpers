@@ -30,7 +30,7 @@ jobs:
         run: npm ci --no-audit
 
       - name: Compile
-        run: npx tsc
+        run: npx tsgo
 
       - name: Try to build
         run: npm run prepublishOnly

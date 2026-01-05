@@ -34,7 +34,7 @@
     "test:e2e": "node --experimental-strip-types --test e2e.spec.ts",
     "test:e2e:updated": "node --experimental-strip-types --test e2e-updated.spec.ts",
     "prepare": "husky",
-    "prepublishOnly": "node --experimental-strip-types npm-compile.ts && npx tsc -P tsconfig.npm.json --outDir ./dist/src"
+    "prepublishOnly": "node --experimental-strip-types npm-compile.ts && npx tsgo -P tsconfig.npm.json --outDir ./dist/src"
   },
   "repository": {
     "type": "git",
@@ -65,6 +65,7 @@
     "@types/node": "25.0.3",
     "@types/unzip-stream": "0.3.4",
     "@types/yazl": "3.3.0",
+    "@typescript/native-preview": "7.0.0-dev.20260105.1",
     "cdk": "2.1100.1",
     "commitlint": "20.3.0",
     "husky": "9.1.7",
