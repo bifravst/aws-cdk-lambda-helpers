@@ -1,11 +1,12 @@
 import { Permissions as SettingsPermissions } from '@bifravst/aws-ssm-settings-helpers/cdk'
+import { Duration, Stack, Tags } from 'aws-cdk-lib'
 import {
-	Duration,
-	aws_lambda as Lambda,
-	Stack,
-	Tags,
-	type aws_logs as Logs,
-} from 'aws-cdk-lib'
+	Architecture,
+	Function as LambdaFunction,
+	Runtime,
+	type FunctionProps,
+} from 'aws-cdk-lib/aws-lambda'
+import type { ILogGroupRef } from 'aws-cdk-lib/aws-logs'
 import { Construct } from 'constructs'
 import { LambdaLogGroup } from './LambdaLogGroup.ts'
 import { LambdaSource } from './LambdaSource.ts'
@@ -28,13 +29,13 @@ import type { PackedLambda } from './packLambda.ts'
  * - policies that allow to access all SSM parameters below the current stack name
  */
 export class PackedLambdaFn extends Construct {
-	public readonly fn: Lambda.Function
-	public readonly logGroup: Logs.ILogGroup
+	public readonly fn: LambdaFunction
+	public readonly logGroup: ILogGroupRef
 	public constructor(
 		parent: Construct,
 		id: string,
 		source: PackedLambda,
-		props: Partial<Omit<Lambda.FunctionProps, 'code' | 'handler'>>,
+		props: Partial<Omit<FunctionProps, 'code' | 'handler'>>,
 	) {
 		super(parent, id)
 
@@ -43,9 +44,9 @@ export class PackedLambdaFn extends Construct {
 		this.logGroup =
 			props.logGroup ?? new LambdaLogGroup(this, 'fnLogs').logGroup
 
-		this.fn = new Lambda.Function(this, 'fn', {
-			architecture: architecture ?? Lambda.Architecture.ARM_64,
-			runtime: props.runtime ?? Lambda.Runtime.NODEJS_24_X,
+		this.fn = new LambdaFunction(this, 'fn', {
+			architecture: architecture ?? Architecture.ARM_64,
+			runtime: props.runtime ?? Runtime.NODEJS_24_X,
 			timeout: Duration.seconds(5),
 			memorySize: 1792,
 			environment: {

@@ -53,8 +53,8 @@
   "author": "Nordic Semiconductor ASA | nordicsemi.no",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@aws-sdk/client-cloudformation": "3.974.0",
-    "@aws-sdk/client-dynamodb": "3.974.0",
+    "@aws-sdk/client-cloudformation": "3.975.0",
+    "@aws-sdk/client-dynamodb": "3.975.0",
     "@bifravst/cloudformation-helpers": "9.1.1",
     "@bifravst/eslint-config-typescript": "6.4.4",
     "@bifravst/from-env": "3.0.2",
@@ -65,8 +65,8 @@
     "@types/node": "25.0.10",
     "@types/unzip-stream": "0.3.4",
     "@types/yazl": "3.3.0",
-    "@typescript/native-preview": "7.0.0-dev.20260122.4",
-    "cdk": "2.1102.0",
+    "@typescript/native-preview": "7.0.0-dev.20260124.1",
+    "cdk": "2.1103.0",
     "commitlint": "20.3.1",
     "husky": "9.1.7",
     "id128": "1.6.6",
@@ -83,8 +83,8 @@
     ]
   },
   "engines": {
-    "node": ">=22.7.0",
-    "npm": ">=10"
+    "node": ">=24",
+    "npm": ">=11"
   },
   "release": {
     "branches": [
@@ -121,9 +121,9 @@
     "yazl": "3.3.1"
   },
   "peerDependencies": {
-    "@aws-sdk/client-lambda": "^3.974.0",
-    "@bifravst/aws-ssm-settings-helpers": "^1.2.257",
-    "aws-cdk-lib": "^2.234.1",
+    "@aws-sdk/client-lambda": "^3.975.0",
+    "@bifravst/aws-ssm-settings-helpers": "^1.2.259",
+    "aws-cdk-lib": "^2.236.0",
     "constructs": "^10.4.5"
   }
 }
