@@ -5,26 +5,26 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/src/lambda.d.ts",
-        "default": "./dist/src/lambda.js"
+        "types": "./npm/lambda.d.ts",
+        "default": "./npm/lambda.js"
       }
     },
     "./layer": {
       "import": {
-        "types": "./dist/src/layer.d.ts",
-        "default": "./dist/src/layer.js"
+        "types": "./npm/layer.d.ts",
+        "default": "./npm/layer.js"
       }
     },
     "./util": {
       "import": {
-        "types": "./dist/src/util.d.ts",
-        "default": "./dist/src/util.js"
+        "types": "./npm/util.d.ts",
+        "default": "./npm/util.js"
       }
     },
     "./cdk": {
       "import": {
-        "types": "./dist/src/cdk.d.ts",
-        "default": "./dist/src/cdk.js"
+        "types": "./npm/cdk.d.ts",
+        "default": "./npm/cdk.js"
       }
     }
   },
@@ -34,7 +34,7 @@
     "test:e2e": "node --experimental-strip-types --test e2e.spec.ts",
     "test:e2e:updated": "node --experimental-strip-types --test e2e-updated.spec.ts",
     "prepare": "husky",
-    "prepublishOnly": "node --experimental-strip-types npm-compile.ts && npx tsgo -P tsconfig.npm.json --outDir ./dist/src"
+    "prepublishOnly": "node --experimental-strip-types .npm/npm-compile.ts && npx tsgo src/*.ts --emitDeclarationOnly --declaration --ignoreConfig --allowImportingTsExtensions --target esnext --module nodenext --moduleResolution nodenext --outDir ./npm && mv npm/src/* npm"
   },
   "repository": {
     "type": "git",
@@ -108,7 +108,7 @@
     "access": "public"
   },
   "files": [
-    "dist/src",
+    "npm",
     "LICENSE",
     "README.md"
   ],

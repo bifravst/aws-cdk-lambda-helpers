@@ -1,2 +1,5 @@
 import config from '@bifravst/eslint-config-typescript'
-export default [...config, { ignores: ['src/test-data/**', 'dist/**'] }]
+export default [
+	...config,
+	{ ignores: ['src/test-data/**', 'npm/**', 'dist/**'] },
+]

@@ -17,6 +17,6 @@ export const packTestLambdas = async (): Promise<TestLambdas> => ({
 	testAliasImports: await packLambdaFromPath({
 		id: 'testAliasImports',
 		sourceFilePath: 'cdk/lambda-with-subpath.ts',
-		tsConfigFilePath: path.join(__dirname, '..', 'tsconfig.base.json'),
+		tsConfigFilePath: path.join(__dirname, '..', 'tsconfig.json'),
 	}),
 })

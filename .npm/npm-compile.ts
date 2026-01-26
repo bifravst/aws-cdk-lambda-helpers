@@ -3,15 +3,23 @@
  */
 
 import swc from '@swc/core'
-import { mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { glob } from 'node:fs/promises'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { updateImports } from './src/updateImports.ts'
+import { updateImports } from '../src/updateImports.ts'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-for await (const file of glob('src/**/*.ts')) {
+const outDir = path.resolve(__dirname, '..', 'npm')
+
+try {
+	rmSync(outDir, { recursive: true })
+} catch {
+	// pass
+}
+
+for await (const file of glob('src/*.ts')) {
 	let compiled = (
 		await swc.transformFile(file, {
 			jsc: {
@@ -28,7 +36,7 @@ for await (const file of glob('src/**/*.ts')) {
 
 	compiled = updateImports(compiled)
 
-	const targetFile = path.join(__dirname, 'dist', file.replace(/\.ts$/, '.js'))
+	const targetFile = path.join(outDir, file.replace(/\.ts$/, '.js'))
 
 	mkdirSync(dirname(targetFile), { recursive: true })
 
