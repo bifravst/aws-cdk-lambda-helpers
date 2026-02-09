@@ -60,7 +60,7 @@
     "@bifravst/from-env": "3.0.2",
     "@bifravst/prettier-config": "1.1.17",
     "@commitlint/config-conventional": "20.3.1",
-    "@swc/cli": "0.7.10",
+    "@swc/cli": "0.8.0",
     "@types/aws-lambda": "8.10.160",
     "@types/node": "25.2.1",
     "@types/unzip-stream": "0.3.4",
