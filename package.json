@@ -124,6 +124,6 @@
     "@aws-sdk/client-lambda": "^3.981.0",
     "@bifravst/aws-ssm-settings-helpers": "^1.2.277",
     "aws-cdk-lib": "^2.238.0",
-    "constructs": "^10.4.5"
+    "constructs": "^10.5.0"
   }
 }
