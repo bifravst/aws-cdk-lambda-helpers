@@ -65,7 +65,7 @@
     "@types/node": "25.5.0",
     "@types/unzip-stream": "0.3.4",
     "@types/yazl": "3.3.0",
-    "@typescript/native-preview": "7.0.0-dev.20260326.1",
+    "@typescript/native-preview": "7.0.0-dev.20260327.2",
     "cdk": "2.1114.1",
     "commitlint": "20.3.1",
     "husky": "9.1.7",
