@@ -117,7 +117,7 @@
     "@swc/core": "1.15.30",
     "fp-ts": "2.16.11",
     "p-retry": "7.1.1",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "yazl": "3.3.1"
   },
   "peerDependencies": {
