@@ -116,7 +116,7 @@
   "dependencies": {
     "@swc/core": "1.15.43",
     "fp-ts": "2.16.11",
-    "p-retry": "7.1.1",
+    "p-retry": "8.0.0",
     "typescript": "5.9.3",
     "yazl": "3.3.1"
   },
