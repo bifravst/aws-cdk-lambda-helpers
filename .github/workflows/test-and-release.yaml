@@ -61,7 +61,7 @@ jobs:
       - run: npx cdk deploy --require-approval never
 
       - name: Upload dist folder as artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: dist
           path: dist/
