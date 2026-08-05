@@ -28,3 +28,13 @@ See [this example](./cdk/update-lambdas.ts) on how to use it.
 ## Example migrations to `@bifravst/aws-cdk-lambda-helpers`
 
 - [world.thingy.rocks backend](https://github.com/NordicPlayground/thingy-rocks-cloud-aws-js/commit/3ca6e267917db4d8cb09ca63ed54384c0e23f163)
+
+## Node & NPM
+
+This project requires Node.js `>=24` and npm `>=12.0.2 <13` (enforced via
+`check-node-version` on `npm install` and `npm ci`).
+
+The check is skipped during `npm publish` and `npm pack`, because
+`semantic-release` bundles its own npm (`@semantic-release/npm` depends on
+`npm@^11.6.2`) and runs the publish with that version rather than the one
+installed in CI.
