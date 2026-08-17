@@ -50,7 +50,7 @@ export const findDependencies = (args: {
 	const fileNode = ts.createSourceFile(
 		sourceFilePath,
 		readFileSync(sourceFilePath, 'utf-8').toString(),
-		ts.ScriptTarget.ES2022,
+		ts.ScriptTarget.ESNext,
 		/*setParentNodes */ true,
 	)
 
