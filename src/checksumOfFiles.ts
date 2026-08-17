@@ -20,19 +20,17 @@ export const checkSumOfStrings = (strings: string[]): string => {
 
 const hashCache: { [key: string]: string } = {}
 const hashFile = async (filePath: string) => {
-	if (hashCache[filePath] === undefined) {
-		hashCache[filePath] = await new Promise((resolve) => {
-			const hash = crypto.createHash('sha1')
-			hash.setEncoding('hex')
-			const fileStream = fs.createReadStream(filePath)
-			fileStream.pipe(hash, { end: false })
-			fileStream.on('end', () => {
-				hash.end()
-				const h = hash.read().toString()
-				resolve(h)
-			})
+	hashCache[filePath] ??= await new Promise((resolve) => {
+		const hash = crypto.createHash('sha1')
+		hash.setEncoding('hex')
+		const fileStream = fs.createReadStream(filePath)
+		fileStream.pipe(hash, { end: false })
+		fileStream.on('end', () => {
+			hash.end()
+			const h = hash.read().toString()
+			resolve(h)
 		})
-	}
+	})
 	return hashCache[filePath]
 }
 

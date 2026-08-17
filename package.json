@@ -5,26 +5,26 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./npm/lambda.d.ts",
-        "default": "./npm/lambda.js"
+        "types": "./lambda.ts",
+        "default": "./dist/src/lambda.js"
       }
     },
     "./layer": {
       "import": {
-        "types": "./npm/layer.d.ts",
-        "default": "./npm/layer.js"
+        "types": "./layer.ts",
+        "default": "./dist/src/layer.js"
       }
     },
     "./util": {
       "import": {
-        "types": "./npm/util.d.ts",
-        "default": "./npm/util.js"
+        "types": "./util.ts",
+        "default": "./dist/src/util.js"
       }
     },
     "./cdk": {
       "import": {
-        "types": "./npm/cdk.d.ts",
-        "default": "./npm/cdk.js"
+        "types": "./cdk.ts",
+        "default": "./dist/src/cdk.js"
       }
     }
   },
@@ -34,7 +34,7 @@
     "test:e2e": "node --experimental-strip-types --test e2e.spec.ts",
     "test:e2e:updated": "node --experimental-strip-types --test e2e-updated.spec.ts",
     "prepare": "husky && case \"$npm_command\" in install|ci) check-node-version --package ;; esac",
-    "prepublishOnly": "node --experimental-strip-types .npm/npm-compile.ts && npx tsgo src/*.ts --emitDeclarationOnly --declaration --ignoreConfig --allowImportingTsExtensions --target esnext --module nodenext --moduleResolution nodenext --outDir ./npm && mv npm/src/* npm"
+    "prepublishOnly": "npx tsc --noEmit false -d"
   },
   "repository": {
     "type": "git",
@@ -53,26 +53,27 @@
   "author": "Nordic Semiconductor ASA | nordicsemi.no",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@aws-sdk/client-cloudformation": "3.981.0",
-    "@aws-sdk/client-dynamodb": "3.981.0",
-    "@bifravst/cloudformation-helpers": "9.1.1",
-    "@bifravst/eslint-config-typescript": "6.4.4",
-    "@bifravst/from-env": "3.0.2",
-    "@bifravst/prettier-config": "1.1.17",
-    "@commitlint/config-conventional": "20.3.1",
+    "@aws-sdk/client-cloudformation": "3.1111.0",
+    "@aws-sdk/client-dynamodb": "3.1111.0",
+    "@bifravst/cloudformation-helpers": "10.0.0",
+    "@bifravst/eslint-config-typescript": "8.0.0",
+    "@bifravst/from-env": "4.0.0",
+    "@bifravst/prettier-config": "2.0.0",
+    "@commitlint/config-conventional": "21.2.2",
     "@swc/cli": "0.8.1",
     "@types/aws-lambda": "8.10.162",
-    "@types/node": "25.9.5",
+    "@types/node": "26.2.0",
     "@types/unzip-stream": "0.3.4",
     "@types/yazl": "3.3.1",
-    "@typescript/native-preview": "7.0.0-dev.20260707.2",
-    "cdk": "2.1132.0",
+    "@typescript/native": "npm:typescript@7.0.2",
+    "cdk": "2.1136.0",
     "check-node-version": "4.2.1",
-    "commitlint": "20.3.1",
+    "commitlint": "21.2.2",
     "husky": "9.1.7",
     "id128": "1.6.6",
-    "lint-staged": "16.4.0",
-    "unzip-stream": "0.3.4"
+    "lint-staged": "17.3.0",
+    "unzip-stream": "0.3.4",
+    "typescript": "npm:@typescript/typescript6@6.0.2"
   },
   "lint-staged": {
     "*.ts": [
@@ -84,7 +85,7 @@
     ]
   },
   "engines": {
-    "node": ">=24",
+    "node": ">=24.19.0 <25",
     "npm": ">=12.0.2 <13"
   },
   "release": {
@@ -115,16 +116,17 @@
   ],
   "prettier": "@bifravst/prettier-config",
   "dependencies": {
-    "@swc/core": "1.15.43",
+    "@swc/core": "1.16.0",
     "fp-ts": "2.16.11",
-    "p-retry": "7.1.1",
-    "typescript": "5.9.3",
+    "p-retry": "8.0.0",
+    "typescript": "7.0.2",
     "yazl": "3.3.1"
   },
   "peerDependencies": {
-    "@aws-sdk/client-lambda": "^3.981.0",
-    "@bifravst/aws-ssm-settings-helpers": "^1.2.329",
-    "aws-cdk-lib": "^2.250.0",
-    "constructs": "^10.6.0"
+    "@aws-sdk/client-lambda": "^3.1111.0",
+    "@bifravst/aws-ssm-settings-helpers": "2.x",
+    "aws-cdk-lib": "^2.265.0",
+    "chalk": "6.x",
+    "constructs": "^10.8.1"
   }
 }

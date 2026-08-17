@@ -10,9 +10,7 @@ export class IoTActionRole extends Construct {
 	constructor(parent: Construct) {
 		super(parent, 'errorActionRole')
 		this.role = new IAM.Role(this, 'iot-action-role', {
-			assumedBy: new IAM.ServicePrincipal(
-				'iot.amazonaws.com',
-			) as IAM.IPrincipal,
+			assumedBy: new IAM.ServicePrincipal('iot.amazonaws.com'),
 			inlinePolicies: {
 				rootPermissions: new IAM.PolicyDocument({
 					statements: [

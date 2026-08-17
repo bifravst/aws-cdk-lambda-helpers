@@ -19,7 +19,7 @@ jobs:
 
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
-          node-version: "24.x"
+          node-version: ">=24.19.0 <25"
           cache: "npm"
 
       - name: Install NPM version specified in package.json
@@ -32,7 +32,7 @@ jobs:
         run: npm ci --no-audit
 
       - name: Compile
-        run: npx tsgo
+        run: npx tsc
 
       - name: Try to build
         run: npm run prepublishOnly

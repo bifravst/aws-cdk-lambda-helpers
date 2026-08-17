@@ -89,7 +89,7 @@ const updateLambda =
 		debug?.(`[${packed.id}]`, `updating config to trigger reload ...`)
 
 		await Promise.all([
-			await lambda.send(
+			lambda.send(
 				new UpdateFunctionConfigurationCommand({
 					FunctionName: lambdaResource.PhysicalResourceId,
 					Environment: {
@@ -100,7 +100,7 @@ const updateLambda =
 					},
 				}),
 			),
-			await lambda.send(
+			lambda.send(
 				new TagResourceCommand({
 					Resource: info.Configuration!.FunctionArn,
 					Tags: {

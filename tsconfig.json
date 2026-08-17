@@ -17,6 +17,8 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "outDir": "./dist",
     "noEmit": true,
     "paths": {
       "#lib": ["./src/test-data/resolve-paths/foo/index.ts"],
