@@ -27,7 +27,6 @@
   },
   "include": [
     "./src/**/*",
-    "./.npm/**/*",
     "./cdk/**/*",
     "./e2e.spec.ts",
     "./e2e-updated.spec.ts"

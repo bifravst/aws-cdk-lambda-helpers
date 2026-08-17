@@ -5,25 +5,25 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./lambda.ts",
+        "types": "./dist/src/lambda.d.ts",
         "default": "./dist/src/lambda.js"
       }
     },
     "./layer": {
       "import": {
-        "types": "./layer.ts",
+        "types": "./dist/src/layer.d.ts",
         "default": "./dist/src/layer.js"
       }
     },
     "./util": {
       "import": {
-        "types": "./util.ts",
+        "types": "./dist/src/util.d.ts",
         "default": "./dist/src/util.js"
       }
     },
     "./cdk": {
       "import": {
-        "types": "./cdk.ts",
+        "types": "./dist/src/cdk.d.ts",
         "default": "./dist/src/cdk.js"
       }
     }
@@ -110,7 +110,7 @@
     "access": "public"
   },
   "files": [
-    "npm",
+    "dist",
     "LICENSE",
     "README.md"
   ],
