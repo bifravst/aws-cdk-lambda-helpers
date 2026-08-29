@@ -53,8 +53,8 @@
   "author": "Nordic Semiconductor ASA | nordicsemi.no",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "@aws-sdk/client-cloudformation": "3.1117.0",
-    "@aws-sdk/client-dynamodb": "3.1117.0",
+    "@aws-sdk/client-cloudformation": "3.1118.0",
+    "@aws-sdk/client-dynamodb": "3.1118.0",
     "@bifravst/cloudformation-helpers": "10.0.1",
     "@bifravst/eslint-config-typescript": "8.0.2",
     "@bifravst/from-env": "4.0.0",
