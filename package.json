@@ -61,7 +61,7 @@
     "@bifravst/prettier-config": "2.0.0",
     "@commitlint/config-conventional": "21.2.2",
     "@types/aws-lambda": "8.10.163",
-    "@types/node": "26.4.0",
+    "@types/node": "26.4.1",
     "@types/unzip-stream": "0.3.4",
     "@types/yazl": "3.3.1",
     "@typescript/native": "npm:typescript@7.0.2",
