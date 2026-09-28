@@ -1,3 +1,4 @@
+export * from './BaseLayerVersion.ts'
 export * from './IoTActionRole.ts'
 export * from './LambdaLogGroup.ts'
 export * from './LambdaSource.ts'

@@ -1,6 +1,6 @@
 import type { App } from 'aws-cdk-lib'
 import { CfnOutput, Duration, aws_lambda as Lambda, Stack } from 'aws-cdk-lib'
-import { LambdaSource } from '../src/cdk.ts'
+import { BaseLayerVersion } from '../src/cdk.ts'
 import type { PackedLayer } from '../src/layer.ts'
 import { PackedLambdaFn } from '../src/PackedLambdaFn.ts'
 import type { TestLambdas } from './packTestLambdas.ts'
@@ -19,21 +19,12 @@ export class TestStack extends Stack {
 	) {
 		super(parent, id, {})
 
-		const baseLayer = new Lambda.LayerVersion(this, 'baseLayer', {
-			layerVersionName: `${Stack.of(this).stackName}-baseLayer`,
-			code: new LambdaSource(this, {
-				id: 'baseLayer',
-				zipFilePath: layer.layerZipFilePath,
-				hash: layer.hash,
-			}).code,
-			compatibleArchitectures: [Lambda.Architecture.ARM_64],
-			compatibleRuntimes: [Lambda.Runtime.NODEJS_24_X],
-		})
+		const baseLayer = new BaseLayerVersion(this, layer)
 
 		const lambda = new PackedLambdaFn(this, 'fn', lambdaSources.test, {
 			timeout: Duration.seconds(1),
 			description: 'Returns a ULID',
-			layers: [baseLayer],
+			layers: [baseLayer.layerVersion],
 		})
 
 		const url = lambda.fn.addFunctionUrl({
@@ -53,7 +44,7 @@ export class TestStack extends Stack {
 			{
 				timeout: Duration.seconds(1),
 				description: 'Uses aliased imports',
-				layers: [baseLayer],
+				layers: [baseLayer.layerVersion],
 			},
 		)
 
