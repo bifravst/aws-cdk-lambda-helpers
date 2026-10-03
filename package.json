@@ -113,7 +113,7 @@
   ],
   "prettier": "@bifravst/prettier-config",
   "dependencies": {
-    "@swc/core": "1.16.12",
+    "@swc/core": "1.16.13",
     "fp-ts": "2.16.11",
     "p-retry": "8.0.1",
     "typescript": "npm:@typescript/typescript6@6.0.2",
