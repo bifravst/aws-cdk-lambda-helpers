@@ -55,7 +55,7 @@
   "devDependencies": {
     "@aws-sdk/client-dynamodb": "3.1146.0",
     "@bifravst/cloudformation-helpers": "10.0.1",
-    "@bifravst/eslint-config-typescript": "8.0.9",
+    "@bifravst/eslint-config-typescript": "8.0.10",
     "@bifravst/from-env": "4.0.0",
     "@bifravst/prettier-config": "2.0.3",
     "@commitlint/config-conventional": "21.2.3",
