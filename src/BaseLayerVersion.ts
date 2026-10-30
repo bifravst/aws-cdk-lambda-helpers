@@ -6,7 +6,17 @@ import type { PackedLayer } from './packLayer.ts'
 
 export class BaseLayerVersion extends Construct {
 	public readonly layerVersion: ILayerVersion
-	constructor(scope: Construct, baseLayer: PackedLayer) {
+	constructor(
+		scope: Construct,
+		baseLayer: PackedLayer,
+		props?: {
+			/**
+			 * The runtimes the layer is compatible with.
+			 * Defaults to Node.js 26.
+			 */
+			compatibleRuntimes?: Lambda.Runtime[]
+		},
+	) {
 		super(scope, BaseLayerVersion.name)
 
 		this.layerVersion = new Lambda.LayerVersion(this, 'baseLayer', {
@@ -17,8 +27,8 @@ export class BaseLayerVersion extends Construct {
 				hash: baseLayer.hash,
 			}).code,
 			compatibleArchitectures: [Lambda.Architecture.ARM_64],
-			// The Node.js 26 runtime exists in Lambda, but is not yet available in the aws-cdk-lib types
-			compatibleRuntimes: [
+			compatibleRuntimes: props?.compatibleRuntimes ?? [
+				// The Node.js 26 runtime exists in Lambda, but is not yet available in the aws-cdk-lib types
 				new Lambda.Runtime('nodejs26.x', Lambda.RuntimeFamily.NODEJS),
 			],
 		})
