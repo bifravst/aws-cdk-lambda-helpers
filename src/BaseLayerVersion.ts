@@ -17,7 +17,10 @@ export class BaseLayerVersion extends Construct {
 				hash: baseLayer.hash,
 			}).code,
 			compatibleArchitectures: [Lambda.Architecture.ARM_64],
-			compatibleRuntimes: [Lambda.Runtime.NODEJS_24_X],
+			// The Node.js 26 runtime exists in Lambda, but is not yet available in the aws-cdk-lib types
+			compatibleRuntimes: [
+				new Lambda.Runtime('nodejs26.x', Lambda.RuntimeFamily.NODEJS),
+			],
 		})
 	}
 }

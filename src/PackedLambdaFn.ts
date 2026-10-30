@@ -4,6 +4,7 @@ import {
 	Architecture,
 	Function as LambdaFunction,
 	Runtime,
+	RuntimeFamily,
 	type FunctionProps,
 } from 'aws-cdk-lib/aws-lambda'
 import type { ILogGroupRef } from 'aws-cdk-lib/aws-logs'
@@ -46,7 +47,8 @@ export class PackedLambdaFn extends Construct {
 
 		this.fn = new LambdaFunction(this, 'fn', {
 			architecture: architecture ?? Architecture.ARM_64,
-			runtime: props.runtime ?? Runtime.NODEJS_24_X,
+			// The Node.js 26 runtime exists in Lambda, but is not yet available in the aws-cdk-lib types
+			runtime: props.runtime ?? new Runtime('nodejs26.x', RuntimeFamily.NODEJS),
 			timeout: Duration.seconds(5),
 			memorySize: 1792,
 			environment: {
